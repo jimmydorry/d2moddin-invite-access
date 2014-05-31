@@ -112,14 +112,15 @@ if (!isset($_SESSION)) {
                                 <h2>Invited: ';
 
                             if ($d2moddin_user['invited']) {
-                                echo 'You have received an invite! <a href="http://d2modd.in/" target="_new">You can now login to D2Moddin via this link.</a>';
+                                echo 'Yes</h2>';
+                                echo '<p>You have received an invite! <a href="http://d2modd.in/" target="_new">You can now login to D2Moddin via this link.</a></p>';
                                 echo '<p>Please do not share this URL. Having a larger number of requests there than expected could interrupt the service.</p>';
                             } else {
-                                echo 'No';
+                                echo 'No</h2>';
                             }
 
-                            echo '</h2>
-                                </div><br />';
+                            echo '</div><br />';
+
 
                             echo '<p>' . number_format($d2moddin_stats['total_users']) . ' users in queue.</p>';
                             echo '<p>' . number_format($d2moddin_stats['total_users_invited']) . ' users have received invites.</p>';
