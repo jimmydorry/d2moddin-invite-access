@@ -89,7 +89,6 @@ if (!isset($_SESSION)) {
                             echo '<p><a href="./auth/?login"><img src="./assets/images/steam_small.png" alt="Sign in with Steam"/></a></p>';
                             echo '</div>';
                         } else {
-                            echo '<img src="http://media.steampowered.com/steamcommunity/public/images/avatars/63/6334ac1c60cbd025d4cc87071414e6569d2b64e8.jpg"  width="20px"/>';
                             echo '<span class="h4">Logged in as:</span> ' . $user_details->personaname . '<br />';
                             //echo '<span class="h3">User ID:</span> ' . $steamid64 . '<br />';
                             echo '<p><a href="./auth/?logout">Click here to Logout</a></p><br />';
@@ -111,8 +110,9 @@ if (!isset($_SESSION)) {
                             }
                             $d2moddin_user = $d2moddin_user[0];
 
-                            echo '<div class="text-center">
-                                <h1>You are #' . number_format($d2moddin_user['queue_id']) . ' in the queue</h1><br />
+                            echo '<div class="text-center">';
+                            echo '<img src="http://media.steampowered.com/steamcommunity/public/images/avatars/63/6334ac1c60cbd025d4cc87071414e6569d2b64e8.jpg" />';
+                            echo '<h1>You are #' . number_format($d2moddin_user['queue_id']) . ' in the queue</h1><br />
                                 <h2>Invited: ';
 
                             if ($d2moddin_user['invited']) {
