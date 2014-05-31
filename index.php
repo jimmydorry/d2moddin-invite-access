@@ -129,7 +129,6 @@ if (!isset($_SESSION)) {
                         }
                         echo '<hr />';
                         echo '<p>' . number_format($d2moddin_stats['total_users']) . ' users in queue.</p>';
-                        echo '<p>' . number_format($d2moddin_stats['total_users_invited']) . ' users have received invites.</p>';
 
                         $memcache->close();
                     } else {

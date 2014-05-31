@@ -18,7 +18,7 @@ try {
         if (!empty($user_id) && !empty($api_key)) {
             if ($api_key == $getdotastats_api_key_master) {
                 $d2moddin_user = simple_cached_query('d2moddin_user' . $user_id,
-                    "SELECT * FROM `invite_key` WHERE `steam_id` = " . $user_id . " LIMIT 0,1;",
+                    "SELECT * FROM `invite_key` WHERE `steam_id` = " . $user_id . " AND `invited` = 1 LIMIT 0,1;",
                     10);
 
                 if (!empty($d2moddin_user)) {
