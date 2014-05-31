@@ -3,9 +3,9 @@ require_once("../functions.php");
 require_once("../connections/parameters.php");
 
 try {
-    /*if (!isset($_SESSION)) {
+    if (!isset($_SESSION)) {
         session_start();
-    }*/
+    }
 
     $user = new user;
     $user->apikey = $steam_api_key; // put your API key here

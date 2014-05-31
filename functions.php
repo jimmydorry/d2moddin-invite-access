@@ -223,8 +223,8 @@ if(!class_exists('user')){
                 {
                     preg_match("/^http:\/\/steamcommunity\.com\/openid\/id\/(7[0-9]{15,25}+)$/", $openid->identity, $matches); // steamID: $matches[1]
                     //setcookie('steamID', $matches[1], time()+(60*60*24*7), '/'); // 1 week
-                    $_COOKIE['user_id'] = $matches[1];
-                    $_COOKIE['user_details'] = $this->GetPlayerSummaries($matches[1]);
+                    $_SESSION['user_id'] = $matches[1];
+                    $_SESSION['user_details'] = $this->GetPlayerSummaries($matches[1]);
 
                     if($relocate){
                         header('Location: '.$relocate);
@@ -243,8 +243,8 @@ if(!class_exists('user')){
 
         public function signOut ($relocate = NULL)
         {
-            unset($_COOKIE['user_id']);
-            unset($_COOKIE['user_details']);
+            unset($_SESSION['user_id']);
+            unset($_SESSION['user_details']);
 
             if($relocate){
                 header('Location: '.$relocate);

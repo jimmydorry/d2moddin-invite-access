@@ -2,9 +2,9 @@
 require_once('./functions.php');
 require_once('./connections/parameters.php');
 
-/*if (!isset($_SESSION)) {
+if (!isset($_SESSION)) {
     session_start();
-}*/
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
@@ -60,12 +60,12 @@ require_once('./connections/parameters.php');
                         $memcache->connect("localhost", 11211); # You might need to set "localhost" to "127.0.0.1"
 
                         $steamid64 = '';
-                        if (!empty($_COOKIE['user_id']) && is_numeric($_COOKIE['user_id'])) {
-                            $steamid64 = $_COOKIE['user_id'];
+                        if (!empty($_SESSION['user_id']) && is_numeric($_SESSION['user_id'])) {
+                            $steamid64 = $_SESSION['user_id'];
                         }
 
-                        $user_details = !empty($_COOKIE['user_details'])
-                            ? $_COOKIE['user_details']
+                        $user_details = !empty($_SESSION['user_details'])
+                            ? $_SESSION['user_details']
                             : NULL;
 
                         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
