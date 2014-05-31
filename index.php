@@ -23,11 +23,11 @@ try {
 
         if (empty($steamid64)) {
             echo 'To sign-up for your invite to D2Modd.in, login via steam. After logging in, you will be entered into the queue for an invite.<br /><br />';
-            echo '<a href="./d2moddin/auth/?login"><img src="./d2moddin/assets/images/steam_small.png" alt="Sign in with Steam"/></a><br /><br />';
+            echo '<a href="./auth/?login"><img src="./assets/images/steam_small.png" alt="Sign in with Steam"/></a><br /><br />';
         } else {
             echo '<strong>Logged in as:</strong> ' . $user_details->personaname . '<br />';
             echo '<strong>User ID:</strong> ' . $steamid64 . '<br />';
-            echo '<a href="./d2moddin/auth/?logout">Logout</a><br /><br />';
+            echo '<a href="./auth/?logout">Logout</a><br /><br />';
 
             $d2moddin_user = simple_cached_query('d2moddin_user'.$steamid64,
                 "SELECT * FROM `invite_key` WHERE `steam_id` = " . $steamid64 . " LIMIT 0,1;",
@@ -51,7 +51,7 @@ try {
                 30);
             $d2moddin_stats = $d2moddin_stats[0];
 
-            /print_r($d2moddin_user);
+            //print_r($d2moddin_user);
 
             echo '<h1>You are #'.$d2moddin_user['queue_id'].' in the queue.</h1><br />';
 
