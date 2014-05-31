@@ -51,7 +51,7 @@ if (!isset($_SESSION)) {
     </section>
     <section id="dialog">
         <div class="container">
-            <div class="animated delay040 fadeInBottom betaDialog text-center">
+            <div class="animated delay040 fadeInBottom betaDialog">
                 <?php
                 try {
                     $db = new dbWrapper($hostname, $username, $password, $database, false);
@@ -68,14 +68,19 @@ if (!isset($_SESSION)) {
                             ? $_SESSION['user_details']
                             : NULL;
 
+                        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        $steamid64 = '123312312';                                                   /////////////////////////////////////////////
+                        @$user_details->personaname = 'ᅠ<┼jiæ░d▒r▓y┼ ҉҈';                       /////////////////////////////////////////////
+                        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
                         if (empty($steamid64)) {
                             echo '<p>To sign-up for your invite to D2Modd.in, login via steam.</p>';
                             echo '<p>After logging in, you will be entered into the queue for an invite.</p>';
-                            echo '<a href="./auth/?login"><img src="./assets/images/steam_small.png" alt="Sign in with Steam"/></a>';
+                            echo '<p><a href="./auth/?login"><img src="./assets/images/steam_small.png" alt="Sign in with Steam"/></a></p>';
                         } else {
-                            echo '<span class="h3">Logged in as:</span> ' . $user_details->personaname . '<br />';
+                            echo '<span class="h4">Logged in as:</span> ' . $user_details->personaname . '<br />';
                             //echo '<span class="h3">User ID:</span> ' . $steamid64 . '<br />';
-                            echo '<a href="./auth/?logout">Logout</a><br /><br />';
+                            echo '<p><a href="./auth/?logout">Click here to Logout</a></p><br />';
 
                             $d2moddin_user = simple_cached_query('d2moddin_user' . $steamid64,
                                 "SELECT * FROM `invite_key` WHERE `steam_id` = " . $steamid64 . " LIMIT 0,1;",
@@ -95,18 +100,28 @@ if (!isset($_SESSION)) {
                             $d2moddin_user = $d2moddin_user[0];
 
                             $d2moddin_stats = simple_cached_query('d2moddin_stats',
-                                "SELECT COUNT(*) as total_users FROM `invite_key`;",
+                                "SELECT
+                                    (SELECT COUNT(*) FROM `invite_key`) as total_users,
+                                    (SELECT COUNT(*) FROM `invite_key` WHERE `invited` = 1) as total_users_invited
+                                ;",
                                 30);
                             $d2moddin_stats = $d2moddin_stats[0];
 
-                            echo '<h1>You are #' . $d2moddin_user['queue_id'] . ' in the queue.</h1><br />';
+                            echo '<div class="text-center">
+                                <h1>You are #' . number_format($d2moddin_user['queue_id']) . ' in the queue</h1><br />
+                                <h2>Invited: ';
 
                             if ($d2moddin_user['invited']) {
-                                echo 'You have received an invite! <a href="http://d2modd.in/" target="_new">You can now login via d2moddin vai this link.</a>';
+                                echo 'You have received an invite! <a href="http://d2modd.in/" target="_new">You can now login to D2Moddin via this link.</a>';
                             } else {
-                                echo 'You have not been invited yet. There are ' . $d2moddin_stats['total_users'] . ' other users in the queue.';
+                                echo 'No';
                             }
 
+                            echo '</h2>
+                                </div><br />';
+
+                            echo '<p>' . number_format($d2moddin_stats['total_users']) . ' users in queue.</p>';
+                            echo '<p>' . number_format($d2moddin_stats['total_users_invited']) . ' users have received invites.</p>';
 
                         }
                     } else {
