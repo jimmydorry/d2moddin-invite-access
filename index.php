@@ -74,9 +74,11 @@ if (!isset($_SESSION)) {
                         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
                         if (empty($steamid64)) {
+                            echo '<div class="text-center">';
                             echo '<p>To sign-up for your invite to D2Modd.in, login via steam.</p>';
                             echo '<p>After logging in, you will be entered into the queue for an invite.</p>';
-                            echo '<div class="text-center"><p><a href="./auth/?login"><img src="./assets/images/steam_small.png" alt="Sign in with Steam"/></a></p></div>';
+                            echo '<p><a href="./auth/?login"><img src="./assets/images/steam_small.png" alt="Sign in with Steam"/></a></p>';
+                            echo '</div>';
                         } else {
                             echo '<span class="h4">Logged in as:</span> ' . $user_details->personaname . '<br />';
                             //echo '<span class="h3">User ID:</span> ' . $steamid64 . '<br />';
