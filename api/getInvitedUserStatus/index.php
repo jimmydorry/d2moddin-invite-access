@@ -7,7 +7,7 @@ $result['status'] = 0;
 $result['error'] = '';
 
 try {
-    $db = new dbWrapper($hostname, $username, $password, $database, 6001, false);
+    $db = new dbWrapper($hostname, $username, $password, $database, $port, false);
     if ($db) {
         $memcache = new Memcache;
         $memcache->connect("localhost", 11211); # You might need to set "localhost" to "127.0.0.1"

@@ -7,7 +7,7 @@ if (!isset($_SESSION)) {
 }
 
 try {
-    $db = new dbWrapper($hostname, $username, $password, $database, 6001, false);
+    $db = new dbWrapper($hostname, $username, $password, $database, $port, false);
     if ($db) {
         !empty($_GET["key"]) && is_numeric($_GET["key"]) ? $admin_pass = $_GET["key"] : $admin_pass = null;
 
@@ -44,17 +44,40 @@ try {
                 $site_stats = $site_stats[0];
             }
 
+            if (isset($_POST['steamidInvite']) && !empty($_POST['steamidInvite'])) {
+                $steamidInvite = $_POST['steamidInvite'];
+                $steamidInvite = explode('<br />', nl2br($_POST['steamidInvite']));
+
+                $sql = '(' . implode(', ', $steamidInvite) . ')';
+
+
+                $db->q("UPDATE `invite_key` SET `invited` = 1 WHERE `steam_id` IN " . $sql . ";");
+
+                echo 'Changed number of users invited!<br /><br />';
+                $site_stats = $db->q("SELECT
+                                    (SELECT COUNT(*) FROM `invite_key`) as total_users,
+                                    (SELECT COUNT(*) FROM `invite_key` WHERE `invited` = 1) as total_users_invited
+                                ;");
+                $site_stats = $site_stats[0];
+            }
+
             echo number_format($site_stats['total_users']) . ' total users<br />';
-            echo number_format($site_stats['total_users_invited']) . ' total users<br /><br />';
+            echo number_format($site_stats['total_users_invited']) . ' total users invited<br /><br />';
             echo ' <p>Set the number of invited users. Users already invited will lose their invite if you set it lower than
-                the current number invited.</p>';
+                the current number invited (above).</p>';
+            echo ' <p>.</p>';
             ?>
 
             <form method="post" action="./?key=<?= $_GET['key'] ?>">
                 <table border="1">
                     <tr>
                         <th>Invited Users</th>
-                        <td><input name="numInvited" type="number" value="<?= $site_stats['total_users_invited'] ?>">
+                        <td><input name="numInvited" type="number">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Users to invite</th>
+                        <td><textarea rows="4" cols="50" name="steamidInvite" type="text" value=""></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -62,7 +85,6 @@ try {
                     </tr>
                 </table>
             </form>
-
 
         <?php
         }
