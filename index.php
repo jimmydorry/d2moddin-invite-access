@@ -60,7 +60,7 @@ require_once('./connections/parameters.php');
                         $memcache->connect("localhost", 11211); # You might need to set "localhost" to "127.0.0.1"
 
                         $steamid64 = '';
-                        if (!empty($_COOKIE['user_id'])) {
+                        if (!empty($_COOKIE['user_id']) && is_numeric($_COOKIE['user_id'])) {
                             $steamid64 = $_COOKIE['user_id'];
                         }
 
