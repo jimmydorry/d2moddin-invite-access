@@ -111,7 +111,7 @@ if (!isset($_SESSION)) {
                             $d2moddin_user = $d2moddin_user[0];
 
                             echo '<div class="text-center">';
-                            echo '<img src="http://media.steampowered.com/steamcommunity/public/images/avatars/63/6334ac1c60cbd025d4cc87071414e6569d2b64e8.jpg" />';
+                            echo '<img src="' . $user_details->avatarmedium . '" /><br />';
                             echo '<h1>You are #' . number_format($d2moddin_user['queue_id']) . ' in the queue</h1><br />
                                 <h2>Invited: ';
 
