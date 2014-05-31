@@ -14,11 +14,11 @@ try {
     //echo $steam_api_key . '<br />' . $steam_api_domain . '<br />';
 
     if (isset($_GET['login'])) {
-        $user->signIn('../../#d2moddin/');
+        $user->signIn('../');
     }
 
     if (isset($_GET['logout'])) {
-        $user->signOut('../../#d2moddin/');
+        $user->signOut('../');
     }
 
 

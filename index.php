@@ -51,15 +51,13 @@ try {
                 30);
             $d2moddin_stats = $d2moddin_stats[0];
 
-            //print_r($d2moddin_user);
-
             echo '<h1>You are #'.$d2moddin_user['queue_id'].' in the queue.</h1><br />';
 
             if($d2moddin_user['invited']){
                 echo 'You have received an invite! <a href="http://d2modd.in/" target="_new">You can now login via d2moddin vai this link.</a>';
             }
             else{
-                echo 'You have not been invited yet. There are '.$d2moddin_stats['total_users'].' in the queue.';
+                echo 'You have not been invited yet. There are '.$d2moddin_stats['total_users'].' other users in the queue.';
             }
 
 
