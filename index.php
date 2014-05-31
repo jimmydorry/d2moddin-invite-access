@@ -73,6 +73,15 @@ if (!isset($_SESSION)) {
                         //@$user_details->personaname = 'ᅠ<┼jiæ░d▒r▓y┼ ҉҈';                       /////////////////////////////////////////////
                         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+                        $d2moddin_stats = simple_cached_query('d2moddin_stats',
+                            "SELECT
+                                (SELECT COUNT(*) FROM `invite_key`) as total_users,
+                                (SELECT COUNT(*) FROM `invite_key` WHERE `invited` = 1) as total_users_invited
+                            ;",
+                            60);
+                        $d2moddin_stats = $d2moddin_stats[0];
+
+
                         if (empty($steamid64)) {
                             echo '<div class="text-center">';
                             echo '<p>To sign-up for your invite to D2Modd.in, login via steam.</p>';
@@ -101,14 +110,6 @@ if (!isset($_SESSION)) {
                             }
                             $d2moddin_user = $d2moddin_user[0];
 
-                            $d2moddin_stats = simple_cached_query('d2moddin_stats',
-                                "SELECT
-                                    (SELECT COUNT(*) FROM `invite_key`) as total_users,
-                                    (SELECT COUNT(*) FROM `invite_key` WHERE `invited` = 1) as total_users_invited
-                                ;",
-                                60);
-                            $d2moddin_stats = $d2moddin_stats[0];
-
                             echo '<div class="text-center">
                                 <h1>You are #' . number_format($d2moddin_user['queue_id']) . ' in the queue</h1><br />
                                 <h2>Invited: ';
@@ -122,13 +123,12 @@ if (!isset($_SESSION)) {
                                 echo 'No</h2>';
                             }
 
-                            echo '</div><br />';
-
-
-                            echo '<p>' . number_format($d2moddin_stats['total_users']) . ' users in queue.</p>';
-                            echo '<p>' . number_format($d2moddin_stats['total_users_invited']) . ' users have received invites.</p>';
+                            echo '</div>';
 
                         }
+                        echo '<hr />';
+                        echo '<p>' . number_format($d2moddin_stats['total_users']) . ' users in queue.</p>';
+                        echo '<p>' . number_format($d2moddin_stats['total_users_invited']) . ' users have received invites.</p>';
                     } else {
                         echo 'No DB';
                     }
