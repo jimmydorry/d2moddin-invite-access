@@ -76,7 +76,7 @@ if (!isset($_SESSION)) {
                         if (empty($steamid64)) {
                             echo '<p>To sign-up for your invite to D2Modd.in, login via steam.</p>';
                             echo '<p>After logging in, you will be entered into the queue for an invite.</p>';
-                            echo '<p><a href="./auth/?login"><img src="./assets/images/steam_small.png" alt="Sign in with Steam"/></a></p>';
+                            echo '<div class="text-center"><p><a href="./auth/?login"><img src="./assets/images/steam_small.png" alt="Sign in with Steam"/></a></p></div>';
                         } else {
                             echo '<span class="h4">Logged in as:</span> ' . $user_details->personaname . '<br />';
                             //echo '<span class="h3">User ID:</span> ' . $steamid64 . '<br />';
@@ -113,6 +113,7 @@ if (!isset($_SESSION)) {
 
                             if ($d2moddin_user['invited']) {
                                 echo 'You have received an invite! <a href="http://d2modd.in/" target="_new">You can now login to D2Moddin via this link.</a>';
+                                echo '<p>Please do not share this URL. Having a larger number of requests there than expected could interrupt the service.</p>';
                             } else {
                                 echo 'No';
                             }
