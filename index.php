@@ -111,7 +111,7 @@ if (!isset($_SESSION)) {
                             $d2moddin_user = $d2moddin_user[0];
 
                             echo '<div class="text-center">';
-                            echo '<img src="' . $user_details->avatarmedium . '" /><br />';
+                            echo '<img src="' . $user_details->avatarmedium . '" /><br /><br />';
                             echo '<h1>You are #' . number_format($d2moddin_user['queue_id']) . ' in the queue</h1><br />
                                 <h2>Invited: ';
 
@@ -119,7 +119,7 @@ if (!isset($_SESSION)) {
                                 echo 'Yes</h2>';
                                 echo '<p>You have received an invite!</p>';
                                 echo '<p><a href="http://d2modd.in/" target="_new"><span class="h5">Login to D2Moddin via this link</span></a></p>';
-                                echo '<p>Please do not share this URL as having too many people attempt to login could interrupt the service.</p>';
+                                echo '<p>Please do not share this URL as service may not be able to handle a larger load.</p>';
                             } else {
                                 echo 'No</h2>';
                             }
