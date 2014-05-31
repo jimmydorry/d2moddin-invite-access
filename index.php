@@ -2,9 +2,9 @@
 require_once('./functions.php');
 require_once('./connections/parameters.php');
 
-if (!isset($_SESSION)) {
+/*if (!isset($_SESSION)) {
     session_start();
-}
+}*/
 ?>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
@@ -60,12 +60,12 @@ if (!isset($_SESSION)) {
                         $memcache->connect("localhost", 11211); # You might need to set "localhost" to "127.0.0.1"
 
                         $steamid64 = '';
-                        if (!empty($_SESSION['user_id'])) {
-                            $steamid64 = $_SESSION['user_id'];
+                        if (!empty($_COOKIE['user_id'])) {
+                            $steamid64 = $_COOKIE['user_id'];
                         }
 
-                        $user_details = !empty($_SESSION['user_details'])
-                            ? $_SESSION['user_details']
+                        $user_details = !empty($_COOKIE['user_details'])
+                            ? $_COOKIE['user_details']
                             : NULL;
 
                         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -129,6 +129,8 @@ if (!isset($_SESSION)) {
                         echo '<hr />';
                         echo '<p>' . number_format($d2moddin_stats['total_users']) . ' users in queue.</p>';
                         echo '<p>' . number_format($d2moddin_stats['total_users_invited']) . ' users have received invites.</p>';
+
+                        $memcache->close();
                     } else {
                         echo 'No DB';
                     }

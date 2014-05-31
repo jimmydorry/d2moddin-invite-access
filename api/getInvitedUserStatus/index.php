@@ -33,6 +33,8 @@ try {
         } else {
             $result['error'] = 'Required parameter missing';
         }
+
+        $memcache->close();
     } else {
         $result['error'] = 'No DB';
     }
