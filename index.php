@@ -40,9 +40,9 @@ if (!isset($_SESSION)) {
             <div class="container">
                 <div class="row">
                     <div class="head col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <h1 class="col-md-offset-5 animated delay033 fadeInBottom">CUSTOM GAMES</h1>
+                        <h1 class="col-md-offset-5 animated delay020 fadeInBottom">CUSTOM GAMES</h1>
 
-                        <h2 class="col-md-offset-5 animated delay036 fadeInBottom">Sign up to get your slot in the
+                        <h2 class="col-md-offset-5 animated delay023 fadeInBottom">Sign up to get your slot in the
                             beta!</h2>
                     </div>
                 </div>
@@ -51,7 +51,7 @@ if (!isset($_SESSION)) {
     </section>
     <section id="dialog">
         <div class="container">
-            <div class="animated delay040 fadeInBottom betaDialog">
+            <div class="animated delay030 fadeInBottom betaDialog">
                 <?php
                 try {
                     $db = new dbWrapper($hostname, $username, $password, $database, false);
@@ -106,7 +106,7 @@ if (!isset($_SESSION)) {
                                     (SELECT COUNT(*) FROM `invite_key`) as total_users,
                                     (SELECT COUNT(*) FROM `invite_key` WHERE `invited` = 1) as total_users_invited
                                 ;",
-                                30);
+                                60);
                             $d2moddin_stats = $d2moddin_stats[0];
 
                             echo '<div class="text-center">
