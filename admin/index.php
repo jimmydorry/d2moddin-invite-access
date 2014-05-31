@@ -7,7 +7,7 @@ if (!isset($_SESSION)) {
 }
 
 try {
-    $db = new dbWrapper($hostname, $username, $password, $database, false);
+    $db = new dbWrapper($hostname, $username, $password, $database, 6001, false);
     if ($db) {
         !empty($_GET["key"]) && is_numeric($_GET["key"]) ? $admin_pass = $_GET["key"] : $admin_pass = null;
 

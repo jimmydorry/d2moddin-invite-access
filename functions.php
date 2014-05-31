@@ -7,9 +7,9 @@ if (!class_exists("dbWrapper")) {
         public $row_cnt;
         public $row_cnt_affected;
 
-        public function __construct($host, $username, $password, $database, $debug)
+        public function __construct($host, $username, $password, $database, $port = 3306, $debug)
         {
-            $this->_mysqli = new mysqli($host, $username, $password, $database);
+            $this->_mysqli = new mysqli($host, $username, $password, $database, $port);
             $this->_debug = (bool)$debug;
             if (mysqli_connect_errno()) {
                 if ($this->_debug) {

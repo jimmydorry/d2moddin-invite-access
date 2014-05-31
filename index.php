@@ -54,7 +54,7 @@ if (!isset($_SESSION)) {
             <div class="animated delay030 fadeInBottom betaDialog">
                 <?php
                 try {
-                    $db = new dbWrapper($hostname, $username, $password, $database, false);
+                    $db = new dbWrapper($hostname, $username, $password, $database, $port, false);
                     if ($db) {
                         $memcache = new Memcache;
                         $memcache->connect("localhost", 11211); # You might need to set "localhost" to "127.0.0.1"
