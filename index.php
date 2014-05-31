@@ -78,7 +78,7 @@ if (!isset($_SESSION)) {
                                 (SELECT COUNT(*) FROM `invite_key`) as total_users,
                                 (SELECT COUNT(*) FROM `invite_key` WHERE `invited` = 1) as total_users_invited
                             ;",
-                            60);
+                            10);
                         $d2moddin_stats = $d2moddin_stats[0];
 
 
