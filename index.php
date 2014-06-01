@@ -117,9 +117,8 @@ if (!isset($_SESSION)) {
                                 echo '<p>Please do not share this URL as service may not be able to handle a larger load.</p>';
                             } else {
                                 echo 'No</h2>';
-                                echo '<p>Your original queue id was ' . number_format($d2moddin_user['queue_id']) .'</p>';
                             }
-
+                            echo '<p>Your original queue id was ' . number_format($d2moddin_user['queue_id']) .'</p>';
                             echo '</div>';
 
                         }
