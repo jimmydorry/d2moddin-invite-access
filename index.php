@@ -68,11 +68,6 @@ if (!isset($_SESSION)) {
                             ? $_SESSION['user_details']
                             : NULL;
 
-                        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        //$steamid64 = '123312312';                                                   /////////////////////////////////////////////
-                        //@$user_details->personaname = 'ᅠ<┼jiæ░d▒r▓y┼ ҉҈';                       /////////////////////////////////////////////
-                        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
                         $d2moddin_stats = simple_cached_query('d2moddin_stats',
                             "SELECT
                                 (SELECT COUNT(*) FROM `invite_key`) as total_users,
@@ -112,7 +107,7 @@ if (!isset($_SESSION)) {
 
                             echo '<div class="text-center">';
                             echo '<img src="' . $user_details->avatarmedium . '" /><br /><br />';
-                            echo '<h1>You are #' . number_format($d2moddin_user['queue_id']) . ' in the queue</h1><br />
+                            echo '<h1>You are #' . number_format(max(1, $d2moddin_user['queue_id'] - $d2moddin_stats['total_users_invited'])) . ' in the queue</h1><br />
                                 <h2>Invited: ';
 
                             if ($d2moddin_user['invited']) {
@@ -122,6 +117,7 @@ if (!isset($_SESSION)) {
                                 echo '<p>Please do not share this URL as service may not be able to handle a larger load.</p>';
                             } else {
                                 echo 'No</h2>';
+                                echo '<p>Your original queue id was ' . number_format($d2moddin_user['queue_id']) .'</p>';
                             }
 
                             echo '</div>';
@@ -129,6 +125,7 @@ if (!isset($_SESSION)) {
                         }
                         echo '<hr />';
                         echo '<p>' . number_format($d2moddin_stats['total_users']) . ' users in queue.</p>';
+//                        echo '<p>' . number_format($d2moddin_stats['total_users_invited']) . ' users in queue.</p>';
 
                         $memcache->close();
                     } else {
