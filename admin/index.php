@@ -56,10 +56,9 @@ try {
                 isset($_POST['isDonated']) && $_POST['isDonated'] == 1 ? $donated = 1 : $donated = 0;
                 isset($_POST['donationAmount']) && !empty($_POST["donationAmount"]) && is_numeric($_POST["donationAmount"]) ? $donation = $_POST["donationAmount"] : $donation = 0.05;
 
-                if(empty($donated)){
+                if (empty($donated)) {
                     $donation = 0;
-                }
-                else{
+                } else {
                     $permamentInvite = 1;
                     $donation = number_format($donation, 2);
                 }
@@ -69,20 +68,19 @@ try {
                 //$sql = '(' . implode(', ', $steamidInvite) . ')';
 
                 $upd_success = $upd_failure = 0;
-                foreach($steamidInvite as $key => $value){
+                foreach ($steamidInvite as $key => $value) {
                     $updateSQL = $db->q("INSERT INTO `invite_key` (`invited`, `permament`, `steam_id`, `donated`, `donation`) VALUES (1, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `invited` = VALUES(`invited`), `permament` = VALUES(`permament`), `donated` = VALUES(`donated`), `donation` = VALUES(`donation`);",
                         'iiii',
                         $permamentInvite, $value, $donated, $donation);
 
-                    if($updateSQL){
+                    if ($updateSQL) {
                         $upd_success++;
-                    }
-                    else{
+                    } else {
                         $upd_failure++;
                     }
                 }
 
-                 echo '<strong>Specified users have skipped the queue!</strong> (Successes: '.$upd_success.' | Failures: '.$upd_failure.')<br /><br />';
+                echo '<strong>Specified users have skipped the queue!</strong> (Successes: ' . $upd_success . ' | Failures: ' . $upd_failure . ')<br /><br />';
             }
 
             $site_stats = $db->q($site_stats_sql);
@@ -137,44 +135,53 @@ try {
             $permament_users = $db->q("SELECT * FROM `invite_key` WHERE `permament` = 1;");
 
             echo '<h1>Permament Users</h1>';
-            echo '<table border="1">';
-            echo '<tr align="center">
+            if (!empty($permament_users)) {
+                echo '<table border="1">';
+                echo '<tr align="center">
                     <th>Queue ID</th>
                     <th>Steam ID</th>
                     <th>Invited</th>
                     <th>Date Joined</th>
                 </tr>';
-            foreach ($permament_users as $key => $value) {
-                echo '<tr align="center">
+                foreach ($permament_users as $key => $value) {
+                    echo '<tr align="center">
                     <td>' . $value['queue_id'] . '</td>
                     <td><a href="http://steamcommunity.com/profiles/' . $value['steam_id'] . '" target="_new">' . $value['steam_id'] . '</a></td>
                     <td>' . $value['invited'] . '</td>
                     <td>' . $value['date_invited'] . '</td>
                 </tr>';
+                }
+                echo '</table>';
+            } else {
+                echo 'No users have donated yet.<br />';
             }
-            echo '</table>';
+
 
             $donated_users = $db->q("SELECT * FROM `invite_key` WHERE `donated` = 1;");
 
             echo '<h1>Users that have donated</h1>';
-            echo '<table border="1">';
-            echo '<tr align="center">
+            if (!empty($donated_users)) {
+                echo '<table border="1">';
+                echo '<tr align="center">
                     <th>Queue ID</th>
                     <th>Steam ID</th>
                     <th>Invited</th>
                     <th>Amount</th>
                     <th>Date Joined</th>
                 </tr>';
-            foreach ($donated_users as $key => $value) {
-                echo '<tr align="center">
+                foreach ($donated_users as $key => $value) {
+                    echo '<tr align="center">
                     <td>' . $value['queue_id'] . '</td>
                     <td><a href="http://steamcommunity.com/profiles/' . $value['steam_id'] . '" target="_new">' . $value['steam_id'] . '</a></td>
                     <td>' . $value['invited'] . '</td>
                     <td>$' . number_format($value['donation'], 2) . '</td>
                     <td>' . $value['date_invited'] . '</td>
                 </tr>';
+                }
+                echo '</table>';
+            } else {
+                echo 'No users have donated yet.<br />';
             }
-            echo '</table>';
 
         } else {
             echo 'Incorrect admin pass';
