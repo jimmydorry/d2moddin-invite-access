@@ -73,7 +73,7 @@ try {
             echo '<p>Set the number of invited users. Users already invited will lose their invite if you set it lower than
                 the current number invited (number above).</p>';
             echo '<p>Steam IDs can be pasted into the "users to invite" to mass invite people. These steam_ids must be 64bit, and only one ID per line (no spaces before or after).</p>';
-            echo '<p>Check the special user checkbox if these users are permamently invited.</p>';
+            echo '<p>Tick the "permament user" checkbox if these users are to be permamently invited.<br /> Inviting them again without the "permament user" checkbox ticked will remove them from the permament list.</p>';
             ?>
 
             <form method="post" action="./?key=<?= $_GET['key'] ?>">
@@ -92,7 +92,7 @@ try {
                         </td>
                     </tr>
                     <tr>
-                        <th>Special User?</th>
+                        <th>Permament?</th>
                         <td><input name="isSpecial" value="1" type="checkbox">
                         </td>
                     </tr>
@@ -104,8 +104,9 @@ try {
 
             <?php
 
-            $special_users = $db->q("SELECT * FROM `invite_key` WHERE `special` = 1;");
+            $permament_users = $db->q("SELECT * FROM `invite_key` WHERE `permament` = 1;");
 
+            echo '<h1>Permament Users</h1>';
             echo '<table border="1">';
             echo '<tr align="center">
                     <th>Queue ID</th>
@@ -113,7 +114,7 @@ try {
                     <th>Invited</th>
                     <th>Date Joined</th>
                 </tr>';
-            foreach ($special_users as $key => $value) {
+            foreach ($permament_users as $key => $value) {
                 echo '<tr align="center">
                     <td>' . $value['queue_id'] . '</td>
                     <td><a href="http://steamcommunity.com/profiles/' . $value['steam_id'] . '" target="_new">' . $value['steam_id'] . '</a></td>
