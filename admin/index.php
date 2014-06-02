@@ -36,7 +36,7 @@ try {
 
                 //IF WE HAVE REDUCED INVITES, SET EVERYONE ABOVE THE INVITE NUMBER TO "NOT INVITED"
                 if ($numinvited < $site_stats['total_users_invited']) {
-                    $updateSQL = $db->q("UPDATE `invite_key` SET `invited` = 0 WHERE `queue_id` > ?;",
+                    $updateSQL = $db->q("UPDATE `invite_key` SET `invited` = 0 WHERE `queue_id` > ? AND permament = 0;",
                         'i',
                         $numinvited);
 
@@ -56,9 +56,7 @@ try {
 
                 $sql = '(' . implode(', ', $steamidInvite) . ')';
 
-                $updateSQL_actual = "UPDATE `invite_key` SET `invited` = 1, `permament` = " . $special_invite . " WHERE `steam_id` IN " . $sql . ";";
-                //echo $updateSQL_actual.'<br />';
-                $updateSQL = $db->q($updateSQL_actual);
+                $updateSQL = $db->q("UPDATE `invite_key` SET `invited` = 1, `permament` = " . $special_invite . " WHERE `steam_id` IN " . $sql . ";");
 
                 if ($updateSQL) {
                     echo '<strong>Specified users have skipped the queue!</strong><br /><br />';
