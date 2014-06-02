@@ -87,6 +87,26 @@ try {
             </form>
 
         <?php
+
+            $special_users = $db->q("SELECT * FROM `invite_key` WHERE `special` = 1;");
+
+            echo '<table border="1">';
+            echo '<tr>
+                    <th>Queue ID</th>
+                    <th>Steam ID</th>
+                    <th>Invited</th>
+                    <th>Date Joined</th>
+                </tr>';
+            foreach($special_users as $key => $value){
+                echo '<tr>
+                    <td>' . $value['queue_id'] . '</td>
+                    <td>' . $value['steam_id'] . '</td>
+                    <td>' . $value['invited'] . '</td>
+                    <td>' . $value['date_invited'] . '</td>
+                </tr>';
+            }
+            echo '</table>';
+
         }
         else{
             echo 'Incorrect admin pass';
