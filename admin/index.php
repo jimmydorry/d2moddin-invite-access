@@ -14,11 +14,14 @@ try {
         //CHECK ADMIN PASS
         if (!empty($admin_pass) && $admin_pass == $admin_pass_master) {
             //GRAB SITE STATS
-            $site_stats = $db->q("SELECT
+            $site_stats_sql = "SELECT
                                     (SELECT COUNT(*) FROM `invite_key`) as total_users,
                                     (SELECT COUNT(*) FROM `invite_key` WHERE `invited` = 1 AND `permament` = 0) as total_users_invited,
-                                    (SELECT COUNT(*) FROM `invite_key` WHERE `invited` = 1 AND `permament` = 1) as total_permament_invited
-                                ;");
+                                    (SELECT COUNT(*) FROM `invite_key` WHERE `donated` = 1) as total_donated_invited,
+                                    (SELECT COUNT(*) FROM `invite_key` WHERE `permament` = 1) as total_permament_invited
+                                ;";
+
+            $site_stats = $db->q($site_stats_sql);
             $site_stats = $site_stats[0];
 
             //IF WE HAVE CHANGED NUMBER INVITED, MAKES CHANGES IN DB
@@ -82,16 +85,13 @@ try {
                  echo '<strong>Specified users have skipped the queue!</strong> (Successes: '.$upd_success.' | Failures: '.$upd_failure.')<br /><br />';
             }
 
-            $site_stats = $db->q("SELECT
-                                    (SELECT COUNT(*) FROM `invite_key`) as total_users,
-                                    (SELECT COUNT(*) FROM `invite_key` WHERE `invited` = 1 AND `permament` = 0) as total_users_invited,
-                                    (SELECT COUNT(*) FROM `invite_key` WHERE `invited` = 1 AND `permament` = 1) as total_permament_invited
-                                ;");
+            $site_stats = $db->q($site_stats_sql);
             $site_stats = $site_stats[0];
 
 
             echo number_format($site_stats['total_users']) . ' total users in queue<br />';
-            echo number_format($site_stats['total_permament_invited']) . ' permament invites<br />';
+            echo number_format($site_stats['total_permament_invited']) . ' permament invitees<br />';
+            echo number_format($site_stats['total_permament_invited']) . ' donation invitees<br />';
             echo number_format($site_stats['total_users_invited']) . ' normal users invited<br /><br />';
             echo '<p>Set the number of invited users. Users already invited will lose their invite if you set it lower than
                 the current number invited (number above).</p>';
