@@ -16,32 +16,36 @@ try {
             //GRAB SITE STATS
             $site_stats = $db->q("SELECT
                                     (SELECT COUNT(*) FROM `invite_key`) as total_users,
-                                    (SELECT COUNT(*) FROM `invite_key` WHERE `invited` = 1) as total_users_invited
+                                    (SELECT COUNT(*) FROM `invite_key` WHERE `invited` = 1 AND `permament` = 0) as total_users_invited,
+                                    (SELECT COUNT(*) FROM `invite_key` WHERE `invited` = 1 AND `permament` = 1) as total_permament_invited
                                 ;");
             $site_stats = $site_stats[0];
 
             //IF WE HAVE CHANGED NUMBER INVITED, MAKES CHANGES IN DB
             if (isset($_POST['numInvited']) && !empty($_POST['numInvited'])) {
                 $numinvited = $db->escape($_POST['numInvited']);
-                $db->q("UPDATE `invite_key` SET `invited` = 1 WHERE `queue_id` <= ?;",
+                $updateSQL = $db->q("UPDATE `invite_key` SET `invited` = 1 WHERE `queue_id` <= ?;",
                     'i',
                     $numinvited);
 
-                //IF WE HAVE REDUCED INVITES, SET EVERYONE ABOVE THE INVITE NUMBER TO "NOT INVITED"
-                if ($numinvited < $site_stats['total_users_invited']) {
-                    $db->q("UPDATE `invite_key` SET `invited` = 0 WHERE `queue_id` > ?;",
-                        'i',
-                        $numinvited);
+                if ($updateSQL) {
+                    echo '<strong>Changed number of users invited!</strong><br /><br />';
+                } else {
+                    echo '<strong>Failed to change number of users invited!</strong><br /><br />';
                 }
 
-                echo 'Changed number of users invited!<br /><br />';
+                //IF WE HAVE REDUCED INVITES, SET EVERYONE ABOVE THE INVITE NUMBER TO "NOT INVITED"
+                if ($numinvited < $site_stats['total_users_invited']) {
+                    $updateSQL = $db->q("UPDATE `invite_key` SET `invited` = 0 WHERE `queue_id` > ?;",
+                        'i',
+                        $numinvited);
 
-                //GRAB SITE STATS
-                $site_stats = $db->q("SELECT
-                                    (SELECT COUNT(*) FROM `invite_key`) as total_users,
-                                    (SELECT COUNT(*) FROM `invite_key` WHERE `invited` = 1) as total_users_invited
-                                ;");
-                $site_stats = $site_stats[0];
+                    if ($updateSQL) {
+                        echo '<strong>Revoked invites for users above #' . $numinvited . '!</strong><br /><br />';
+                    } else {
+                        echo '<strong>Failed to revoke invites for users above #' . $numinvited . '!</strong><br /><br />';
+                    }
+                }
             }
 
             if (isset($_POST['steamidInvite']) && !empty($_POST['steamidInvite'])) {
@@ -60,16 +64,19 @@ try {
                 } else {
                     echo '<strong>No users changed. They are either not in the queue or were already invited.</strong><br /><br />';
                 }
-
-                $site_stats = $db->q("SELECT
-                                    (SELECT COUNT(*) FROM `invite_key`) as total_users,
-                                    (SELECT COUNT(*) FROM `invite_key` WHERE `invited` = 1) as total_users_invited
-                                ;");
-                $site_stats = $site_stats[0];
             }
 
-            echo number_format($site_stats['total_users']) . ' total users<br />';
-            echo number_format($site_stats['total_users_invited']) . ' total users invited<br /><br />';
+            $site_stats = $db->q("SELECT
+                                    (SELECT COUNT(*) FROM `invite_key`) as total_users,
+                                    (SELECT COUNT(*) FROM `invite_key` WHERE `invited` = 1 AND `permament` = 0) as total_users_invited,
+                                    (SELECT COUNT(*) FROM `invite_key` WHERE `invited` = 1 AND `permament` = 1) as total_permament_invited
+                                ;");
+            $site_stats = $site_stats[0];
+
+
+            echo number_format($site_stats['total_users']) . ' total users in queue<br />';
+            echo number_format($site_stats['total_permament_invited']) . ' permament invites<br />';
+            echo number_format($site_stats['total_users_invited']) . ' normal users invited<br /><br />';
             echo '<p>Set the number of invited users. Users already invited will lose their invite if you set it lower than
                 the current number invited (number above).</p>';
             echo '<p>Steam IDs can be pasted into the "users to invite" to mass invite people. These steam_ids must be 64bit, and only one ID per line (no spaces before or after).</p>';
@@ -80,7 +87,7 @@ try {
                 <table border="1">
                     <tr>
                         <th>Invited Users</th>
-                        <td><input name="numInvited" type="number">
+                        <td><input name="numInvited" type="number" value="<?= $site_stats['total_users_invited'] ?>">
                         </td>
                     </tr>
                     <tr>
