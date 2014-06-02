@@ -87,7 +87,7 @@ try {
                 <table border="1">
                     <tr>
                         <th>Invited Users</th>
-                        <td><input name="numInvited" type="number" value="<?= $site_stats['total_users_invited'] ?>">
+                        <td><input name="numInvited" type="number">
                         </td>
                     </tr>
                     <tr>
