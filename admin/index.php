@@ -13,6 +13,11 @@ try {
 
         //CHECK ADMIN PASS
         if (!empty($admin_pass) && $admin_pass == $admin_pass_master) {
+
+            echo '<hr />';
+            print_r($_POST);
+            echo '<hr />';
+
             //GRAB SITE STATS
             $site_stats = $db->q("SELECT
                                     (SELECT COUNT(*) FROM `invite_key`) as total_users,
