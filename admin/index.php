@@ -61,8 +61,9 @@ try {
 
                 $sql = '(' . implode(', ', $steamidInvite) . ')';
 
-
-                $updateSQL = $db->q("UPDATE `invite_key` SET `invited` = 1, `special` = " . $special_invite . " WHERE `steam_id` IN " . $sql . ";");
+                $updateSQL_actual = "UPDATE `invite_key` SET `invited` = 1, `special` = " . $special_invite . " WHERE `steam_id` IN " . $sql . ";";
+                echo $updateSQL_actual.'<br />';
+                $updateSQL = $db->q($updateSQL_actual);
 
                 if ($updateSQL) {
                     echo '<strong>Specified users have skipped the queue!</strong><br /><br />';
