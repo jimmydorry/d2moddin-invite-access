@@ -56,9 +56,9 @@ try {
                 $updateSQL = $db->q("UPDATE `invite_key` SET `invited` = 1, `special` = " . $special_invite . " WHERE `steam_id` IN " . $sql . ";");
 
                 if ($updateSQL) {
-                    echo 'Specified users have skipped the queue!<br /><br />';
+                    echo '<strong>Specified users have skipped the queue!</strong><br /><br />';
                 } else {
-                    echo 'No users changed. They are either not in the queue or were already invited.<br /><br />';
+                    echo '<strong>No users changed. They are either not in the queue or were already invited.</strong><br /><br />';
                 }
 
                 $site_stats = $db->q("SELECT
@@ -67,6 +67,10 @@ try {
                                 ;");
                 $site_stats = $site_stats[0];
             }
+
+            echo '<hr />';
+            print_r($_POST);
+            echo '<hr />';
 
             echo number_format($site_stats['total_users']) . ' total users<br />';
             echo number_format($site_stats['total_users_invited']) . ' total users invited<br /><br />';
