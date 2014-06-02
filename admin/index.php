@@ -53,16 +53,26 @@ try {
 
                 $steamidInvite = $_POST['steamidInvite'];
                 $steamidInvite = explode('<br />', nl2br($_POST['steamidInvite']));
+                //$sql = '(' . implode(', ', $steamidInvite) . ')';
 
-                $sql = '(' . implode(', ', $steamidInvite) . ')';
+                $upd_success = $upd_failure = 0;
+                foreach($steamidInvite as $key => $value){
 
-                $updateSQL = $db->q("UPDATE `invite_key` SET `invited` = 1, `permament` = " . $special_invite . " WHERE `steam_id` IN " . $sql . ";");
+                    //INSERT INTO `invite_key` (`invited`, `permament`, `steam_id`) VALUES (1, ?, ?) ON DUPLICATE KEY UPDATE `invited` = VALUES(`invited`), `permament` = VALUES(`permament`);
 
-                if ($updateSQL) {
-                    echo '<strong>Specified users have skipped the queue!</strong><br /><br />';
-                } else {
-                    echo '<strong>No users changed. They are either not in the queue or were already invited.</strong><br /><br />';
+                    $updateSQL = $db->q("INSERT INTO `invite_key` (`invited`, `permament`, `steam_id`) VALUES (1, ?, ?) ON DUPLICATE KEY UPDATE `invited` = VALUES(`invited`), `permament` = VALUES(`permament`);",
+                        'ii',
+                        $special_invite, $value);
+
+                    if($updateSQL){
+                        $upd_success++;
+                    }
+                    else{
+                        $upd_failure++;
+                    }
                 }
+
+                 echo '<strong>Specified users have skipped the queue!</strong> (Successes: '.$upd_success.' | Failures: '.$upd_failure.')<br /><br />';
             }
 
             $site_stats = $db->q("SELECT
