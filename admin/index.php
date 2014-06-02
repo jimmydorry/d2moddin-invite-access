@@ -89,7 +89,7 @@ try {
 
             echo number_format($site_stats['total_users']) . ' total users in queue<br />';
             echo number_format($site_stats['total_permament_invited']) . ' permament invitees<br />';
-            echo number_format($site_stats['total_permament_invited']) . ' donation invitees<br />';
+            echo number_format($site_stats['total_donated_invited']) . ' donation invitees<br />';
             echo number_format($site_stats['total_users_invited']) . ' normal users invited<br /><br />';
             echo '<p>Set the number of invited users. Users already invited will lose their invite if you set it lower than
                 the current number invited (number above).</p>';
