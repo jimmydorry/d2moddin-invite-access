@@ -68,10 +68,6 @@ try {
                 $site_stats = $site_stats[0];
             }
 
-            echo '<hr />';
-            print_r($_POST);
-            echo '<hr />';
-
             echo number_format($site_stats['total_users']) . ' total users<br />';
             echo number_format($site_stats['total_users_invited']) . ' total users invited<br /><br />';
             echo '<p>Set the number of invited users. Users already invited will lose their invite if you set it lower than
@@ -97,7 +93,7 @@ try {
                     </tr>
                     <tr>
                         <th>Special User?</th>
-                        <td><input name="isSpecial" value="0" type="checkbox">
+                        <td><input name="isSpecial" value="1" type="checkbox">
                         </td>
                     </tr>
                     <tr>
