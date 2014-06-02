@@ -49,7 +49,17 @@ try {
             }
 
             if (isset($_POST['steamidInvite']) && !empty($_POST['steamidInvite'])) {
-                $_POST['isSpecial'] == 1 ? $special_invite = 1 : $special_invite = 0;
+                isset($_POST['isPermament']) && $_POST['isPermament'] == 1 ? $permamentInvite = 1 : $permamentInvite = 0;
+                isset($_POST['isDonated']) && $_POST['isDonated'] == 1 ? $donated = 1 : $donated = 0;
+                isset($_POST['donationAmount']) && !empty($_POST["donationAmount"]) && is_numeric($_POST["donationAmount"]) ? $donation = $_POST["donationAmount"] : $donation = 0.05;
+
+                if(empty($donated)){
+                    $donation = 0;
+                }
+                else{
+                    $permamentInvite = 1;
+                    $donation = number_format($donation, 2);
+                }
 
                 $steamidInvite = $_POST['steamidInvite'];
                 $steamidInvite = explode('<br />', nl2br($_POST['steamidInvite']));
@@ -57,12 +67,9 @@ try {
 
                 $upd_success = $upd_failure = 0;
                 foreach($steamidInvite as $key => $value){
-
-                    //INSERT INTO `invite_key` (`invited`, `permament`, `steam_id`) VALUES (1, ?, ?) ON DUPLICATE KEY UPDATE `invited` = VALUES(`invited`), `permament` = VALUES(`permament`);
-
-                    $updateSQL = $db->q("INSERT INTO `invite_key` (`invited`, `permament`, `steam_id`) VALUES (1, ?, ?) ON DUPLICATE KEY UPDATE `invited` = VALUES(`invited`), `permament` = VALUES(`permament`);",
-                        'ii',
-                        $special_invite, $value);
+                    $updateSQL = $db->q("INSERT INTO `invite_key` (`invited`, `permament`, `steam_id`, `donated`, `donation`) VALUES (1, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `invited` = VALUES(`invited`), `permament` = VALUES(`permament`), `donated` = VALUES(`donated`), `donation` = VALUES(`donation`);",
+                        'iiii',
+                        $permamentInvite, $value, $donated, $donation);
 
                     if($updateSQL){
                         $upd_success++;
@@ -109,7 +116,14 @@ try {
                     </tr>
                     <tr>
                         <th>Permament?</th>
-                        <td><input name="isSpecial" value="1" type="checkbox">
+                        <td><input name="isPermament" value="1" type="checkbox">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Donated?</th>
+                        <td>
+                            <input name="isDonated" value="1" type="checkbox">
+                            <input name="donationAmount" value="5.00" type="number">
                         </td>
                     </tr>
                     <tr>
@@ -135,6 +149,28 @@ try {
                     <td>' . $value['queue_id'] . '</td>
                     <td><a href="http://steamcommunity.com/profiles/' . $value['steam_id'] . '" target="_new">' . $value['steam_id'] . '</a></td>
                     <td>' . $value['invited'] . '</td>
+                    <td>' . $value['date_invited'] . '</td>
+                </tr>';
+            }
+            echo '</table>';
+
+            $donated_users = $db->q("SELECT * FROM `invite_key` WHERE `donated` = 1;");
+
+            echo '<h1>Users that have donated</h1>';
+            echo '<table border="1">';
+            echo '<tr align="center">
+                    <th>Queue ID</th>
+                    <th>Steam ID</th>
+                    <th>Invited</th>
+                    <th>Amount</th>
+                    <th>Date Joined</th>
+                </tr>';
+            foreach ($donated_users as $key => $value) {
+                echo '<tr align="center">
+                    <td>' . $value['queue_id'] . '</td>
+                    <td><a href="http://steamcommunity.com/profiles/' . $value['steam_id'] . '" target="_new">' . $value['steam_id'] . '</a></td>
+                    <td>' . $value['invited'] . '</td>
+                    <td>$' . number_format($value['donation'], 2) . '</td>
                     <td>' . $value['date_invited'] . '</td>
                 </tr>';
             }
