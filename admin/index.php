@@ -13,11 +13,6 @@ try {
 
         //CHECK ADMIN PASS
         if (!empty($admin_pass) && $admin_pass == $admin_pass_master) {
-
-            echo '<hr />';
-            print_r($_POST);
-            echo '<hr />';
-
             //GRAB SITE STATS
             $site_stats = $db->q("SELECT
                                     (SELECT COUNT(*) FROM `invite_key`) as total_users,
@@ -61,8 +56,8 @@ try {
 
                 $sql = '(' . implode(', ', $steamidInvite) . ')';
 
-                $updateSQL_actual = "UPDATE `invite_key` SET `invited` = 1, `special` = " . $special_invite . " WHERE `steam_id` IN " . $sql . ";";
-                echo $updateSQL_actual.'<br />';
+                $updateSQL_actual = "UPDATE `invite_key` SET `invited` = 1, `permament` = " . $special_invite . " WHERE `steam_id` IN " . $sql . ";";
+                //echo $updateSQL_actual.'<br />';
                 $updateSQL = $db->q($updateSQL_actual);
 
                 if ($updateSQL) {
