@@ -16,7 +16,9 @@ try {
 
             $donated_users = $db->q("SELECT * FROM `invite_key` WHERE `donated` = 1 AND `donation_txn_id` IS NOT NULL ORDER BY `donation` DESC;");
 
-            echo '<h1>Donators</h1>';
+            $donated_amount = $db->q("SELECT SUM(`donation`) as donated_total FROM `invite_key` WHERE `donated` = 1 AND `donation_txn_id` IS NOT NULL;");
+
+            echo '<h1>Donators ($'.$donated_amount[0]['donated_total'].')</h1>';
             if (!empty($donated_users)) {
                 echo '<table border="1">';
                 echo '<tr align="center">
