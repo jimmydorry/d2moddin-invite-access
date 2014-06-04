@@ -3,4 +3,4 @@ print_r($_GET);
 
 echo '<hr />';
 
-print_r($_POST);
+print_r($_GET);
