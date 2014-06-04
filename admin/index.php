@@ -16,9 +16,12 @@ try {
             //GRAB SITE STATS
             $site_stats_sql = "SELECT
                                     (SELECT COUNT(*) FROM `invite_key`) as total_users,
-                                    (SELECT COUNT(*) FROM `invite_key` WHERE `invited` = 1 AND `permament` = 0) as total_users_invited,
-                                    (SELECT COUNT(*) FROM `invite_key` WHERE `donated` = 1) as total_donated_invited,
-                                    (SELECT COUNT(*) FROM `invite_key` WHERE `permament` = 1) as total_permament_invited
+                                    (SELECT COUNT(*) FROM `invite_key` WHERE `invited` = 1) as total_users_invited,
+                                    (SELECT COUNT(*) FROM `invite_key` WHERE `invited` = 1 AND `permament` = 0 AND `donated` = 0) as total_normal_users_invited,
+                                    (SELECT COUNT(*) FROM `invite_key` WHERE `donated` = 1) as total_donated_users,
+                                    (SELECT COUNT(*) FROM `invite_key` WHERE `donated` = 1 AND `invited` = 1) as total_donated_users_invited,
+                                    (SELECT COUNT(*) FROM `invite_key` WHERE `permament` = 1) as total_permament_users,
+                                    (SELECT COUNT(*) FROM `invite_key` WHERE `permament` = 1 AND `invited` = 1) as total_permament_users_invited
                                 ;";
 
             $site_stats = $db->q($site_stats_sql);
@@ -88,9 +91,9 @@ try {
 
 
             echo number_format($site_stats['total_users']) . ' total users in queue<br />';
-            echo number_format($site_stats['total_permament_invited']) . ' permament invitees<br />';
-            echo number_format($site_stats['total_donated_invited']) . ' donation invitees<br />';
-            echo number_format($site_stats['total_users_invited']) . ' normal users invited<br /><br />';
+            echo number_format($site_stats['total_users_invited']) . ' users invited (normal: '.$site_stats['total_normal_users_invited'].')<br /><br />';
+            echo number_format($site_stats['total_permament_users']) . ' users with the permament flag (invited: '.$site_stats['total_permament_users_invited'].')<br />';
+            echo number_format($site_stats['total_donated_users']) . ' users with the donator flag (invited: '.$site_stats['total_donated_users_invited'].')<br />';
             echo '<p>Set the number of invited users. Users already invited will lose their invite if you set it lower than
                 the current number invited (number above).</p>';
             echo '<p>Steam IDs can be pasted into the "users to invite" to mass invite people. These steam_ids must be 64bit, and only one ID per line (no spaces before or after).</p>';

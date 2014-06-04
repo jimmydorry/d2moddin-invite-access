@@ -16,7 +16,7 @@ try {
 
             $donated_users = $db->q("SELECT * FROM `invite_key` WHERE `donated` = 1 AND donation_txn_id IS NULL ORDER BY `queue_id` ASC;");
 
-            echo '<h1>Donators</h1>';
+            echo '<h1>Legacy Donators</h1>';
             if (!empty($donated_users)) {
                 echo '<table border="1">';
                 echo '<tr align="center">
