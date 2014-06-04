@@ -9,7 +9,7 @@
 $steam_id = 28755155;
 
 $extra_url = '&return='.urlencode('http://d2modd.in/donate/thanks.php') .
-                '&notify_url='.urlencode('http://d2modd.in/donate/ipn.php') .
+                '&notify_url='.urlencode('http://d2modd.in/donate/customIPN.php') .
                 '&cancel_return='.urlencode('http://d2modd.in/donate/cancel.php') .
                 '&rm=2'.
                 '&custom='.$steam_id;
