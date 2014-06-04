@@ -80,6 +80,8 @@ if ($verified) {
     $log .= $listener->getTextReport();
 }
 
-$fh = fopen($log_file, 'w') or die("can't open file");
-fwrite($fh, $log);
-fclose($fh);
+if (!empty($log)) {
+    $fh = fopen($log_file, 'w') or die("can't open file");
+    fwrite($fh, $log);
+    fclose($fh);
+}
