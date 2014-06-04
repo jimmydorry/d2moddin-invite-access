@@ -54,7 +54,7 @@ try {
         echo '<p>This graph shows the distribution of people joining the queue.</p>';
         echo '</div>';
 
-        $d2moddin_stats = simple_cached_query('d2moddin_stats_queue_joins',
+        $signup_stats = simple_cached_query('d2moddin_stats_queue_joins',
             'SELECT HOUR(date_invited) as hour, DAY(date_invited) as day, MONTH(date_invited) as month, YEAR(date_invited) as year, COUNT(*) as count FROM invite_key GROUP BY HOUR(date_invited), DAY(date_invited), MONTH(date_invited) ORDER BY 4,3,2,1;',
             10);
 
