@@ -71,7 +71,7 @@ try {
                 <td>'.$date.'</td>
                 <td>'.$value['count'].'</td>
             </tr>';
-            $super_array[] = array('c' => array(array('v' => $$date), array('v' => $value['count'])));
+            $super_array[] = array('c' => array(array('v' => $date), array('v' => $value['count'])));
         }
         echo '</table>';
 
@@ -104,5 +104,3 @@ try {
 } catch (Exception $e) {
     echo $e->getMessage();
 }
-?>
-?>
