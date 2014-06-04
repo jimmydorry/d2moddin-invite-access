@@ -19,8 +19,8 @@ try {
             //'title' => 'Average spins in ' . $hits . ' attacks',
             //'theme' => 'maximized',
             'axisTitlesPosition' => 'in',
-            'width' => 600,
-            'height' => 260,
+            'width' => 800,
+            'height' => 400,
             'chartArea' => array(
                 'width' => '100%',
                 'left' => 60
