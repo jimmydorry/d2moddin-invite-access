@@ -114,7 +114,7 @@ if (!isset($_SESSION)) {
                             $d2moddin_user = $d2moddin_user[0];
 
                             echo '<div class="text-center">';
-                            echo '<img src="' . $user_details->avatarmedium . '" /><br /><br />';
+                            echo '<a href="http://steamcommunity.com/profiles/'.$steamid64.'" target="_new"><img src="' . $user_details->avatarmedium . '" /></a><br /><br />';
                             echo '<h1>You are #' . number_format(max(1, $d2moddin_user['queue_id'] - $d2moddin_stats['total_users_invited'])) . ' in the queue</h1><br />
                                 <h2>Invited: ';
 
