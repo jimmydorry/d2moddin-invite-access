@@ -126,7 +126,6 @@ if (!isset($_SESSION)) {
                                 echo 'No</h2>';
 
                                 $donate_url = 'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=BY9D59PJTKRA4&lc=US&item_name=D2Moddin&item_number=stream&currency_code=USD&bn=PP%2dDonationsBF%3apanel%2d51694185%2dimage%2dc3579668e9e7350a%2d320%2epng%3aNonHosted';
-                                //$donate_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_donations&business=NU6P6N82DAHS8&lc=US&item_name=d2moddin&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted';
                                 $donate_url .= '&return='.urlencode('http://d2modd.in/?thanks') .
                                     '&notify_url='.urlencode('http://d2modd.in/donate/customIPN.php') .
                                     '&cancel_return='.urlencode('http://d2modd.in/') .
