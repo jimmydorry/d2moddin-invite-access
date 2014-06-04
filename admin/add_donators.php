@@ -35,11 +35,16 @@ try {
                 isset($_POST['donation_email']) && !empty($_POST["donation_email"]) ? $donation_email = $_POST["donation_email"] : $donation_email = NULL;
                 isset($_POST['donation_txn_id']) && !empty($_POST["donation_txn_id"]) ? $donation_txn_id = $_POST["donation_txn_id"] : $donation_txn_id = NULL;
 
-                    $updateSQL = $db->q("INSERT INTO `invite_key` (`steam_id`, `invited`, `permament`, `donated`, `donation`, `donation_fee`, `donation_email`, `donation_txn_id`) VALUES (?, 1, 1, 1, ?, ?, ?) ON DUPLICATE KEY UPDATE `invited` = VALUES(`invited`), `permament` = VALUES(`permament`), `donated` = VALUES(`donated`), `donation` = VALUES(`donation`), `donation_fee` = VALUES(`donation_fee`), `donation_email` = VALUES(`donation_email`), `donation_txn_id` = VALUES(`donation_txn_id`);",
-                        'iddss',
-                        $steam_id, $donation, $donation_fee, $donation_email, $donation_txn_id);
+                $updateSQL = $db->q("INSERT INTO `invite_key` (`steam_id`, `invited`, `permament`, `donated`, `donation`, `donation_fee`, `donation_email`, `donation_txn_id`) VALUES (?, 1, 1, 1, ?, ?, ?) ON DUPLICATE KEY UPDATE `invited` = VALUES(`invited`), `permament` = VALUES(`permament`), `donated` = VALUES(`donated`), `donation` = VALUES(`donation`), `donation_fee` = VALUES(`donation_fee`), `donation_email` = VALUES(`donation_email`), `donation_txn_id` = VALUES(`donation_txn_id`);",
+                    'iddss',
+                    $steam_id, $donation, $donation_fee, $donation_email, $donation_txn_id);
 
-                echo '<strong>Specified user '.$steam_id.' has been marked as a donator!</strong><br /><br />';
+                if($updateSQL){
+                    echo '<strong>Specified user ' . $steam_id . ' has been marked as a donator!</strong><br /><br />';
+                }
+                else{
+                    echo '<strong>Failed to mark user ' . $steam_id . ' as a donator!</strong><br /><br />';
+                }
             }
 
             $site_stats = $db->q($site_stats_sql);
@@ -53,38 +58,38 @@ try {
 
             ?>
 
-            <form method = "post" action = "./add_donators.php?key=<?= $_GET['key'] ?>">
-            <table border="1">
-                <tr>
-                    <th>64bit Steam ID</th>
-                    <td><input name="steamidInvite" type="text" value="">
-                    </td>
-                </tr>
-                <tr>
-                    <th>Donation</th>
-                    <td><input name="donation" type="text" value="">
-                    </td>
-                </tr>
-                <tr>
-                    <th>Donation Fee</th>
-                    <td><input name="donation_fee" type="text" value="0.01">
-                    </td>
-                </tr>
-                <tr>
-                    <th>Email</th>
-                    <td><input name="donation_email" type="text" value="">
-                    </td>
-                </tr>
-                <tr>
-                    <th>Transaction ID</th>
-                    <td><input name="donation_txn_id" type="text" value="">
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center"><input type="submit" value="Modify"></td>
-                </tr>
-            </table>
-            </form >
+            <form method="post" action="./add_donators.php?key=<?= $_GET['key'] ?>">
+                <table border="1">
+                    <tr>
+                        <th>64bit Steam ID</th>
+                        <td><input name="steamidInvite" type="text" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Donation</th>
+                        <td><input name="donation" type="text" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Donation Fee</th>
+                        <td><input name="donation_fee" type="text" value="0.01">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td><input name="donation_email" type="text" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Transaction ID</th>
+                        <td><input name="donation_txn_id" type="text" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center"><input type="submit" value="Modify"></td>
+                    </tr>
+                </table>
+            </form>
 
         <?php
         } else {
