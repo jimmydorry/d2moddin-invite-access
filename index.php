@@ -113,7 +113,7 @@ if (!isset($_SESSION)) {
                             if ($d2moddin_user['invited']) {
                                 echo 'Yes</h2>';
                                 echo '<p>You have received an invite!</p>';
-                                echo '<p><a href="http://invitedbeta.d2modd.in/" target="_new"><span class="h5">Login to D2Moddin via this link</span></a></p>';
+                                echo '<p><a href="http://alpha.d2modd.in/" target="_new"><span class="h5">Login to D2Moddin via this link</span></a></p>';
                                 echo '<p>Please do not share this URL as service may not be able to handle a larger load.</p>';
                             } else {
                                 echo 'No</h2>';
