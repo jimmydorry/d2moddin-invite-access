@@ -53,7 +53,7 @@ try {
 
             ?>
 
-            <form method = "post" action = "./?key=<?= $_GET['key'] ?>">
+            <form method = "post" action = "./add_donators?key=<?= $_GET['key'] ?>">
             <table border="1">
                 <tr>
                     <th>64bit Steam ID</th>
