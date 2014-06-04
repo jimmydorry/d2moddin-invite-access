@@ -82,7 +82,7 @@ if (strcmp ($res, "VERIFIED") == 0) {
 } else if (strcmp ($res, "INVALID") == 0) {
     // IPN invalid, log for manual investigation
     echo "The response from IPN was: <b>" .$res ."</b>";
-    $test .= "The response from IPN was: <b>" .$res ."</b>\n";
+    $test .= "The response from IPN was: " .$res ."\n";
 }
 
 $myFile = "./pings/test".time().".txt";
