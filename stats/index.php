@@ -56,8 +56,10 @@ try {
 
         $signup_stats = $db->q('SELECT HOUR(date_invited) as hour, DAY(date_invited) as day, MONTH(date_invited) as month, YEAR(date_invited) as year, COUNT(*) as count FROM invite_key GROUP BY HOUR(date_invited), DAY(date_invited), MONTH(date_invited) ORDER BY 4,3,2,1;');
 
-        echo '<table border="1">';
-        echo '
+
+        $table = '';
+        $table .= '<table border="1">';
+        $table .= '
             <tr>
                 <th>Time</th>
                 <th>Count</th>
@@ -66,14 +68,14 @@ try {
         $super_array = array();
         foreach ($signup_stats as $key => $value) {
             $date = str_pad($value['hour'], 2, '0', STR_PAD_LEFT).':00 '.$value['day'].'-'.$value['month'].'-'.$value['year'];
-            echo '
+            $table .= '
             <tr>
                 <td>'.$date.'</td>
                 <td>'.$value['count'].'</td>
             </tr>';
             $super_array[] = array('c' => array(array('v' => $date), array('v' => $value['count'])));
         }
-        echo '</table>';
+        $table .= '</table>';
 
         $data = array(
             'cols' => array(
@@ -84,12 +86,14 @@ try {
         );
         $chart->load(json_encode($data));
         $options['hAxis']['title'] = 'Spins';
-        echo $chart->draw('spin_chart', $options, true, $optionsDataTable);
+        echo $chart->draw('queue_count', $options, true, $optionsDataTable);
 
 
         echo '<div id="queue_count"></div>';
         echo '<div id="queue_count_dataTable"></div>';
 
+        echo '<hr />';
+        echo $table;
         echo '<hr />';
 
         echo '<div id="pagerendertime" style="font-size: 12px;">';
