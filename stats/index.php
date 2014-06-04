@@ -63,27 +63,22 @@ try {
                 <th>Count</th>
             </tr>';
 
+        $super_array = array();
         foreach ($signup_stats as $key => $value) {
+            $date = str_pad($value['hour'], 2, '0', STR_PAD_LEFT).':00 '.$value['day'].'-'.$value['month'].'-'.$value['year'];
             echo '
             <tr>
-                <td>'.$value['hour'].':00 '.$value['day'].'-'.$value['month'].'-'.$value['year'].'</td>
+                <td>'.$date.'</td>
                 <td>'.$value['count'].'</td>
             </tr>';
+            $super_array[] = array('c' => array(array('v' => $$date), array('v' => $value['count'])));
         }
         echo '</table>';
 
-        exit();
-
-        $super_array = array();
-        foreach ($array_spins_graph as $key => $value) {
-            $super_array[] = array('c' => array(array('v' => $value['spins']), array('v' => $value['rd']), array('v' => $value['prd'])));
-        }
-
         $data = array(
             'cols' => array(
-                array('id' => '', 'label' => 'Spins', 'type' => 'string'),
-                array('id' => '', 'label' => 'RD', 'type' => 'number'),
-                array('id' => '', 'label' => 'PRD', 'type' => 'number')
+                array('id' => '', 'label' => 'Date', 'type' => 'string'),
+                array('id' => '', 'label' => 'Joins', 'type' => 'number'),
             ),
             'rows' => $super_array
         );
@@ -92,8 +87,8 @@ try {
         echo $chart->draw('spin_chart', $options, true, $optionsDataTable);
 
 
-        echo '<div id="spin_chart"></div>';
-        echo '<div id="spin_chart_dataTable"></div>';
+        echo '<div id="queue_count"></div>';
+        echo '<div id="queue_count_dataTable"></div>';
 
         echo '<hr />';
 
