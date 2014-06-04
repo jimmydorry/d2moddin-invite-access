@@ -66,7 +66,7 @@ try {
                     </td>
                 </tr>
                 <tr>
-                    <th>User ID</th>
+                    <th>Donation Fee</th>
                     <td><input name="donation_fee" type="text" value="0.01">
                     </td>
                 </tr>
