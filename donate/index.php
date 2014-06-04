@@ -9,9 +9,10 @@
 $steam_id = 28755155;
 
 $extra_url = '&return='.urlencode('http://d2modd.in/donate/thanks.php') .
-                '&notify_url='.urlencode('http://d2modd.in/donate/ipn.php?sid='.$steam_id) .
+                '&notify_url='.urlencode('http://d2modd.in/donate/ipn.php') .
                 '&cancel_return='.urlencode('http://d2modd.in/donate/cancel.php') .
-                '&rm=2';
+                '&rm=2'.
+                '&custom='.$steam_id;
     echo '<a href="https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_donations&business=NU6P6N82DAHS8&lc=US&item_name=d2moddin&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted' . $extra_url . '">Donate here</a>';
 ?>
 

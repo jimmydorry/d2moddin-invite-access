@@ -73,9 +73,12 @@ if (strcmp ($res, "VERIFIED") == 0) {
 
     // IPN message values depend upon the type of notification sent.
     // To loop through the &_POST array and print the NV pairs to the screen:
+    $test = '';
     foreach($_POST as $key => $value) {
         echo $key." = ". $value."<br>";
+        $test .= $key." = ". $value."\n";
     }
+    file_put_contents('test'.time().'.txt', $test, FILE_APPEND | LOCK_EX);
 } else if (strcmp ($res, "INVALID") == 0) {
     // IPN invalid, log for manual investigation
     echo "The response from IPN was: <b>" .$res ."</b>";
