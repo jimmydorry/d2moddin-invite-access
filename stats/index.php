@@ -60,7 +60,7 @@ try {
 
         $super_array = array();
         foreach ($signup_stats as $key => $value) {
-            $date = str_pad($value['hour'], 2, '0', STR_PAD_LEFT).':00 '.$value['day'].'-'.$value['month'].'-'.$value['year'];
+            $date = $value['year'].'-'.$value['month'].'-'.$value['day'].' '.str_pad($value['hour'], 2, '0', STR_PAD_LEFT).':00';
             $super_array[] = array('c' => array(array('v' => $date), array('v' => $value['count'])));
         }
 
