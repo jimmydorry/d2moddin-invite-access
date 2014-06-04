@@ -78,7 +78,13 @@ if (strcmp ($res, "VERIFIED") == 0) {
         echo $key." = ". $value."<br>";
         $test .= $key." = ". $value."\n";
     }
-    file_put_contents('./pings/test'.time().'.txt', $test, FILE_APPEND | LOCK_EX);
+
+    $myFile = "./pings/test'.time().'.txt";
+    $fh = fopen($myFile, 'w') or die("can't open file");
+    fwrite($fh, $test);
+    fclose($fh);
+
+
 } else if (strcmp ($res, "INVALID") == 0) {
     // IPN invalid, log for manual investigation
     echo "The response from IPN was: <b>" .$res ."</b>";
