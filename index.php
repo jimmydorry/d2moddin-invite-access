@@ -77,15 +77,14 @@ if (!isset($_SESSION)) {
                         $d2moddin_stats = $d2moddin_stats[0];
 
 
-                        if(isset($_GET['thanks'])){
+                        if (isset($_GET['thanks'])) {
                             echo '<div class="text-center">';
                             echo '<h2>Thanks for donating!</h2>';
                             echo '<p>Your donation may take several minutes to be received. When it is received, your queue status will be updated.</p>';
                             echo '<p><a href="http://steamcommunity.com/groups/D2Moddin/discussions/4/">Errors and bugs can be reported in the donation forum</a></p>';
                             echo '<p><a href="http://d2modd.in">Reload page</a></p>';
                             echo '</div>';
-                        }
-                        else if (empty($steamid64)) {
+                        } else if (empty($steamid64)) {
                             echo '<div class="text-center">';
                             echo '<p>To sign-up for your invite to D2Modd.in, login via steam.</p>';
                             echo '<p>After logging in, you will be entered into the queue for an invite.</p>';
@@ -114,7 +113,7 @@ if (!isset($_SESSION)) {
                             $d2moddin_user = $d2moddin_user[0];
 
                             echo '<div class="text-center">';
-                            echo '<a href="http://steamcommunity.com/profiles/'.$steamid64.'" target="_new"><img src="' . $user_details->avatarmedium . '" /></a><br /><br />';
+                            echo '<a href="http://steamcommunity.com/profiles/' . $steamid64 . '" target="_new"><img src="' . $user_details->avatarmedium . '" /></a><br /><br />';
 
                             if ($d2moddin_user['invited']) {
                                 echo '<h2>Invited: Yes</h2>';
@@ -124,23 +123,22 @@ if (!isset($_SESSION)) {
                                 echo '<h1>You are #' . number_format(max(1, $d2moddin_user['queue_id'] - $d2moddin_stats['total_users_invited'])) . ' in the queue</h1><br />';
                                 echo '<h2>Invited: No</h2>';
                             }
-                            echo '<p>Your original queue id was ' . number_format($d2moddin_user['queue_id']) .'</p>';
+                            echo '<p>Your original queue id was ' . number_format($d2moddin_user['queue_id']) . '</p>';
                             echo '</div>';
+
+                            $donate_url = 'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=BY9D59PJTKRA4&lc=US&item_name=D2Moddin&item_number=stream&currency_code=USD&bn=PP%2dDonationsBF%3apanel%2d51694185%2dimage%2dc3579668e9e7350a%2d320%2epng%3aNonHosted';
+                            $donate_url .= '&return=' . urlencode('http://d2modd.in/?thanks') .
+                                '&notify_url=' . urlencode('http://d2modd.in/donate/IPN_noperks.php') .
+                                '&cancel_return=' . urlencode('http://d2modd.in/') .
+                                '&rm=2' .
+                                '&custom=' . $steamid64;
+
+                            echo '<p><a href="' . $donate_url . '" target="_new"><span class="h5">Donations Accepted Here (no obligation)</span></a></p>';
 
                         }
                         echo '<hr />';
                         echo '<p>' . number_format($d2moddin_stats['total_users']) . ' users in queue.</p>';
 //                        echo '<p>' . number_format($d2moddin_stats['total_users_invited']) . ' users in queue.</p>';
-
-                        $donate_url = 'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=BY9D59PJTKRA4&lc=US&item_name=D2Moddin&item_number=stream&currency_code=USD&bn=PP%2dDonationsBF%3apanel%2d51694185%2dimage%2dc3579668e9e7350a%2d320%2epng%3aNonHosted';
-                        $donate_url .= '&return='.urlencode('http://d2modd.in/?thanks') .
-                            '&notify_url='.urlencode('http://d2modd.in/donate/IPN_noperks.php') .
-                            '&cancel_return='.urlencode('http://d2modd.in/') .
-                            '&rm=2'.
-                            '&custom='.$steamid64;
-
-                        echo '<p><a href="'.$donate_url.'" target="_new"><span class="h5">Donations Accepted Here (no obligation)</span></a></p>';
-
 
                         $memcache->close();
                     } else {
