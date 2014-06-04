@@ -14,7 +14,7 @@ try {
         //CHECK ADMIN PASS
         if (!empty($admin_pass) && $admin_pass == $admin_pass_master) {
 
-            $donated_users = $db->q("SELECT * FROM `invite_key` WHERE `donated` = 1 AND `donation_txn_id` IS NOT NULL ORDER BY `donation` DESC;");
+            $donated_users = $db->q("SELECT * FROM `invite_key` WHERE `donated` = 1 ORDER BY `queue_id` ASC;");
 
             echo '<h1>Donators</h1>';
             if (!empty($donated_users)) {
@@ -43,7 +43,7 @@ try {
                 }
                 echo '</table>';
             } else {
-                echo 'No users have donated yet.<br />';
+                echo 'No old donations.<br />';
             }
 
 

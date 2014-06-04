@@ -132,9 +132,9 @@ try {
 
             <?php
 
-            $permament_users = $db->q("SELECT * FROM `invite_key` WHERE `permament` = 1;");
+            $permament_users = $db->q("SELECT * FROM `invite_key` WHERE `permament` = 1 ORDER BY queue_id ASC LIMIT 0, 20;");
 
-            echo '<h1>Permament Users</h1>';
+            echo '<h1>Permament Users (<a target="_new" href="./permament.php?key='.$admin_pass.'">rest here</a>)</h1>';
             if (!empty($permament_users)) {
                 echo '<table border="1">';
                 echo '<tr align="center">
@@ -156,10 +156,12 @@ try {
                 echo 'No permament users yet.<br />';
             }
 
+            echo '<br /><a target="_new" href="./donators_old.php?key='.$admin_pass.'">Possible old donators here</a><br />';
+
 
             $donated_users = $db->q("SELECT * FROM `invite_key` WHERE `donated` = 1 AND `donation_txn_id` IS NOT NULL ORDER BY `donation` DESC LIMIT 0, 20;");
 
-            echo '<h1>Top 20 Donators (<a href="./donators.php?key='.$admin_pass.'">rest here</a>)</h1>';
+            echo '<h1>Top 20 Donators (<a target="_new" href="./donators.php?key='.$admin_pass.'">rest here</a>)</h1>';
             if (!empty($donated_users)) {
                 echo '<table border="1">';
                 echo '<tr align="center">
