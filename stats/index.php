@@ -26,13 +26,13 @@ try {
                 'left' => 60
             ),
             'hAxis' => array(
-                'title' => 'Spins',
+                'title' => 'Date',
                 'maxAlternation' => 1,
                 //'textPosition' => 'in',
                 //'viewWindowMode' => 'maximized'
             ),
             'vAxis' => array(
-                'title' => 'Frequency',
+                'title' => 'Users',
                 //'textPosition' => 'in',
             ),
             'legend' => array(
