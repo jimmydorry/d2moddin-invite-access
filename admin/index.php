@@ -91,7 +91,7 @@ try {
 
 
             echo number_format($site_stats['total_users']) . ' total users in queue<br />';
-            echo number_format($site_stats['total_users_invited']) . ' users invited (normal: '.$site_stats['total_normal_users_invited'].')<br /><br />';
+            echo number_format($site_stats['total_users_invited']) . ' users invited (no other flags: '.$site_stats['total_normal_users_invited'].')<br />';
             echo number_format($site_stats['total_permament_users']) . ' users with the permament flag (invited: '.$site_stats['total_permament_users_invited'].')<br />';
             echo number_format($site_stats['total_donated_users']) . ' users with the donator flag (invited: '.$site_stats['total_donated_users_invited'].')<br />';
             echo '<p>Set the number of invited users. Users already invited will lose their invite if you set it lower than
