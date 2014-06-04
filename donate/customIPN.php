@@ -1,6 +1,6 @@
 <?php
 
-$receiver_email = 'test@jimmydorry.com';
+$receiver_email = 'kidovate@gmail.com';
 $log_file = "./pings/ipn" . time() . ".txt";
 $log = '';
 
@@ -13,7 +13,7 @@ include('ipnlistener.php');
 $listener = new IpnListener();
 
 // tell the IPN listener to use the PayPal test sandbox
-$listener->use_sandbox = true;
+$listener->use_sandbox = false;
 
 // try to process the IPN POST
 try {
@@ -46,7 +46,7 @@ if ($verified) {
         $log .= "IPN failed fraud checks: \n$errmsg\n\n";
         $log .= $listener->getTextReport();
     } else {
-        $log .= "Success!!!\n";
+        //$log .= "Success!!!\n";
 
         require_once('../functions.php');
         require_once('../connections/parameters.php');

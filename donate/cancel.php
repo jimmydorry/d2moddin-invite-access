@@ -1,1 +1,0 @@
-Oops! You cancelled the donation!
