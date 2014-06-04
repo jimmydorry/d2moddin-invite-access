@@ -56,7 +56,7 @@ try {
             <form method = "post" action = "./?key=<?= $_GET['key'] ?>">
             <table border="1">
                 <tr>
-                    <th>User ID</th>
+                    <th>64bit Steam ID</th>
                     <td><input name="steamidInvite" type="text" value="">
                     </td>
                 </tr>
