@@ -35,7 +35,7 @@ try {
                 isset($_POST['donation_email']) && !empty($_POST["donation_email"]) ? $donation_email = $_POST["donation_email"] : $donation_email = NULL;
                 isset($_POST['donation_txn_id']) && !empty($_POST["donation_txn_id"]) ? $donation_txn_id = $_POST["donation_txn_id"] : $donation_txn_id = NULL;
 
-                $updateSQL = $db->q("INSERT INTO `invite_key` (`steam_id`, `invited`, `permament`, `donated`, `donation`, `donation_fee`, `donation_email`, `donation_txn_id`) VALUES (?, 1, 1, 1, ?, ?, ?) ON DUPLICATE KEY UPDATE `invited` = VALUES(`invited`), `permament` = VALUES(`permament`), `donated` = VALUES(`donated`), `donation` = VALUES(`donation`), `donation_fee` = VALUES(`donation_fee`), `donation_email` = VALUES(`donation_email`), `donation_txn_id` = VALUES(`donation_txn_id`);",
+                $updateSQL = $db->q("INSERT INTO `invite_key` (`steam_id`, `invited`, `permament`, `donated`, `donation`, `donation_fee`, `donation_email`, `donation_txn_id`) VALUES (?, 1, 1, 1, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `invited` = VALUES(`invited`), `permament` = VALUES(`permament`), `donated` = VALUES(`donated`), `donation` = VALUES(`donation`), `donation_fee` = VALUES(`donation_fee`), `donation_email` = VALUES(`donation_email`), `donation_txn_id` = VALUES(`donation_txn_id`);",
                     'iddss',
                     $steam_id, $donation, $donation_fee, $donation_email, $donation_txn_id);
 
