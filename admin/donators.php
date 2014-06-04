@@ -16,7 +16,7 @@ try {
 
             $donated_users = $db->q("SELECT * FROM `invite_key` WHERE `donated` = 1 AND `donation_txn_id` IS NOT NULL ORDER BY `donation` DESC;");
 
-            $donated_amount = $db->q("SELECT SUM(`donation`) as donation_total, SUM(`donation_fees`) as donated_fees_total FROM `invite_key` WHERE `donated` = 1 AND `donation_txn_id` IS NOT NULL;");
+            $donated_amount = $db->q("SELECT SUM(`donation`) as donation_total, SUM(`donation_fee`) as donated_fees_total FROM `invite_key` WHERE `donated` = 1 AND `donation_txn_id` IS NOT NULL;");
 
             echo '<h1>Donators (~$'. number_format($donated_amount[0]['donated_total'] - $donated_amount[0]['donated_fees_total'], 2).')</h1>';
             if (!empty($donated_users)) {
