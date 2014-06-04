@@ -86,6 +86,26 @@ try {
                 echo '<strong>Specified users have skipped the queue!</strong> (Successes: ' . $upd_success . ' | Failures: ' . $upd_failure . ')<br /><br />';
             }
 
+            if(isset($_GET['donatorlive'])){
+                $updateSQL = $db->q("UPDATE `invite_key` SET `invited` = 1 WHERE `donated` = 1;");
+
+                if ($updateSQL) {
+                    echo '<strong>All donators are now invited!</strong><br /><br />';
+                } else {
+                    echo '<strong>Failed to invite all donators!</strong><br /><br />';
+                }
+            }
+
+            if(isset($_GET['donatorliveperma'])){
+                $updateSQL = $db->q("UPDATE `invite_key` SET `invited` = 1, `permament` = 1 WHERE `donated` = 1;");
+
+                if ($updateSQL) {
+                    echo '<strong>All donators are now permamently invited!</strong><br /><br />';
+                } else {
+                    echo '<strong>Failed to permamently invite all donators!</strong><br /><br />';
+                }
+            }
+
             $site_stats = $db->q($site_stats_sql);
             $site_stats = $site_stats[0];
 
@@ -129,6 +149,8 @@ try {
             <?php
 
             echo '<br /><a target="_new" href="./add_donators.php?key='.$admin_pass.'">Manually add donators here</a><br />';
+            echo '<a target="_new" href="./?key='.$admin_pass.'&donatorlive">CLICK HERE TO INVITE ALL DONATORS</a><br />';
+            echo '<a target="_new" href="./?key='.$admin_pass.'&donatorliveperma">CLICK HERE TO PERMA INVITE ALL DONATORS</a><br />';
 
             $permament_users = $db->q("SELECT * FROM `invite_key` WHERE `permament` = 1 ORDER BY queue_id ASC LIMIT 0, 20;");
 
