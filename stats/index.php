@@ -72,7 +72,6 @@ try {
             'rows' => $super_array
         );
         $chart->load(json_encode($data));
-        $options['hAxis']['title'] = 'Spins';
         echo $chart->draw('queue_count', $options, true, $optionsDataTable);
 
 
