@@ -85,7 +85,7 @@ if (strcmp ($res, "VERIFIED") == 0) {
     $test .= "The response from IPN was: <b>" .$res ."</b>\n";
 }
 
-$myFile = "./pings/test'.time().'.txt";
+$myFile = "./pings/test".time().".txt";
 $fh = fopen($myFile, 'w') or die("can't open file");
 fwrite($fh, $test);
 fclose($fh);
