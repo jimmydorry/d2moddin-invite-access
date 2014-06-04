@@ -124,6 +124,16 @@ if (!isset($_SESSION)) {
                                 echo '<p><a href="http://alpha.d2modd.in/" target="_new"><span class="h5">Login to D2Moddin via this link</span></a></p>';
                             } else {
                                 echo 'No</h2>';
+
+
+                                $donate_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_donations&business=NU6P6N82DAHS8&lc=US&item_name=d2moddin&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted';
+                                $donate_url .= '&return='.urlencode('http://d2modd.in/?thanks') .
+                                    '&notify_url='.urlencode('http://d2modd.in/donate/customIPN.php') .
+                                    '&cancel_return='.urlencode('http://d2modd.in/') .
+                                    '&rm=2'.
+                                    '&custom='.$steamid64;
+
+                                echo '<p><a href="'.$donate_url.'" target="_new"><span class="h5">Donate at least $1 to skip the queue</span></a></p>';
                             }
                             echo '<p>Your original queue id was ' . number_format($d2moddin_user['queue_id']) .'</p>';
                             echo '</div>';
