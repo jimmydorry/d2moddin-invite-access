@@ -121,13 +121,6 @@ try {
                         </td>
                     </tr>
                     <tr>
-                        <th>Donated?</th>
-                        <td>
-                            <input name="isDonated" value="1" type="checkbox">
-                            <input name="donationAmount" value="5.00" type="number">
-                        </td>
-                    </tr>
-                    <tr>
                         <td colspan="2" align="center"><input type="submit" value="Modify"></td>
                     </tr>
                 </table>
