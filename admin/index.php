@@ -128,6 +128,8 @@ try {
 
             <?php
 
+            echo '<br /><a target="_new" href="./add_donators.php?key='.$admin_pass.'">Manually add donators here</a><br />';
+
             $permament_users = $db->q("SELECT * FROM `invite_key` WHERE `permament` = 1 ORDER BY queue_id ASC LIMIT 0, 20;");
 
             echo '<h1>Permament Users (<a target="_new" href="./permament.php?key='.$admin_pass.'">rest here</a>)</h1>';
@@ -151,9 +153,6 @@ try {
             } else {
                 echo 'No permament users yet.<br />';
             }
-
-            echo '<br /><a target="_new" href="./donators_old.php?key='.$admin_pass.'">Possible old donators here</a><br />';
-
 
             $donated_users = $db->q("SELECT * FROM `invite_key` WHERE `donated` = 1 AND `donation_txn_id` IS NOT NULL ORDER BY `donation` DESC LIMIT 0, 20;");
 

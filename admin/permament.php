@@ -14,9 +14,9 @@ try {
         //CHECK ADMIN PASS
         if (!empty($admin_pass) && $admin_pass == $admin_pass_master) {
 
-            $donated_users = $db->q("SELECT * FROM `invite_key` WHERE `permament` = 1 ORDER BY queue_id ASC;");
+            $donated_users = $db->q("SELECT * FROM `invite_key` WHERE `permament` = 1 AND `donated` = 0 ORDER BY queue_id ASC;");
 
-            echo '<h1>Permament Users</h1>';
+            echo '<h1>Permament Users (no donors)</h1>';
             if (!empty($donated_users)) {
                 echo '<table border="1">';
                 echo '<tr align="center">
