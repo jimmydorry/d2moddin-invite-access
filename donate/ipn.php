@@ -78,7 +78,7 @@ if (strcmp ($res, "VERIFIED") == 0) {
         echo $key." = ". $value."<br>";
         $test .= $key." = ". $value."\n";
     }
-    file_put_contents('test'.time().'.txt', $test, FILE_APPEND | LOCK_EX);
+    file_put_contents('./test'.time().'.txt', $test, FILE_APPEND | LOCK_EX);
 } else if (strcmp ($res, "INVALID") == 0) {
     // IPN invalid, log for manual investigation
     echo "The response from IPN was: <b>" .$res ."</b>";
