@@ -79,8 +79,6 @@ try {
         echo '<div id="queue_count"></div>';
         echo '<div id="queue_count_dataTable"></div>';
 
-        echo '<hr />';
-
         echo '<div id="pagerendertime" style="font-size: 12px;">';
         echo '<hr />Page generated in ' . (time() - $start) . 'secs';
         echo '</div>';
