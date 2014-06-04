@@ -52,7 +52,7 @@ curl_close($ch);
 
 
 // STEP 3: Inspect IPN validation result and act accordingly
-
+$test = '';
 if (strcmp ($res, "VERIFIED") == 0) {
     // The IPN is verified, process it:
     // check whether the payment_status is Completed
@@ -73,20 +73,20 @@ if (strcmp ($res, "VERIFIED") == 0) {
 
     // IPN message values depend upon the type of notification sent.
     // To loop through the &_POST array and print the NV pairs to the screen:
-    $test = '';
+
     foreach($_POST as $key => $value) {
         echo $key." = ". $value."<br>";
         $test .= $key." = ". $value."\n";
     }
 
-    $myFile = "./pings/test'.time().'.txt";
-    $fh = fopen($myFile, 'w') or die("can't open file");
-    fwrite($fh, $test);
-    fclose($fh);
-
-
 } else if (strcmp ($res, "INVALID") == 0) {
     // IPN invalid, log for manual investigation
     echo "The response from IPN was: <b>" .$res ."</b>";
+    $test .= "The response from IPN was: <b>" .$res ."</b>\n";
 }
+
+$myFile = "./pings/test'.time().'.txt";
+$fh = fopen($myFile, 'w') or die("can't open file");
+fwrite($fh, $test);
+fclose($fh);
 ?>
