@@ -54,28 +54,15 @@ try {
         echo '<p>This page looks at some of the queue stats.</p>';
         echo '</div>';
 
-        $signup_stats = $db->q('SELECT HOUR(date_invited) as hour, DAY(date_invited) as day, MONTH(date_invited) as month, YEAR(date_invited) as year, COUNT(*) as count FROM invite_key GROUP BY HOUR(date_invited), DAY(date_invited), MONTH(date_invited) ORDER BY 4,3,2,1;');
-
-
-        $table = '';
-        $table .= '<table border="1">';
-        $table .= '
-            <tr>
-                <th>Time</th>
-                <th>Count</th>
-            </tr>';
+        $d2moddin_stats = simple_cached_query('d2moddin_stats_queue_joins',
+            'SELECT HOUR(date_invited) as hour, DAY(date_invited) as day, MONTH(date_invited) as month, YEAR(date_invited) as year, COUNT(*) as count FROM invite_key GROUP BY HOUR(date_invited), DAY(date_invited), MONTH(date_invited) ORDER BY 4,3,2,1;',
+            10);
 
         $super_array = array();
         foreach ($signup_stats as $key => $value) {
             $date = str_pad($value['hour'], 2, '0', STR_PAD_LEFT).':00 '.$value['day'].'-'.$value['month'].'-'.$value['year'];
-            $table .= '
-            <tr>
-                <td>'.$date.'</td>
-                <td>'.$value['count'].'</td>
-            </tr>';
             $super_array[] = array('c' => array(array('v' => $date), array('v' => $value['count'])));
         }
-        $table .= '</table>';
 
         $data = array(
             'cols' => array(
@@ -92,8 +79,6 @@ try {
         echo '<div id="queue_count"></div>';
         echo '<div id="queue_count_dataTable"></div>';
 
-        echo '<hr />';
-        echo $table;
         echo '<hr />';
 
         echo '<div id="pagerendertime" style="font-size: 12px;">';
