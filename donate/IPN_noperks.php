@@ -55,17 +55,42 @@ if ($verified) {
             $db = new dbWrapper($hostname, $username, $password, $database, $port, false);
             if ($db) {
 
-                $steam_id = $_POST['custom'];
-                $donation = $_POST['payment_gross'];
-                $donation_fee = $_POST['payment_fee'];
-                $donation_email = $_POST['payer_email'];
-                $donation_txn_id = $_POST['txn_id'];
-                $donation_ipn_id = $_POST['ipn_track_id'];
+                isset($_POST['custom']) && !empty($_POST["custom"]) && is_numeric($_POST["custom"])
+                    ? $steam_id = $_POST["custom"]
+                    : $steam_id = 0;
+                isset($_POST['payment_gross']) && !empty($_POST["payment_gross"]) && is_numeric($_POST["payment_gross"])
+                    ? $donation = $_POST["payment_gross"]
+                    : $donation = 0;
+                isset($_POST['payment_fee']) && !empty($_POST["payment_fee"]) && is_numeric($_POST["payment_fee"])
+                    ? $donation_fee = $_POST["payment_fee"]
+                    : $donation_fee = 0.01;
+                isset($_POST['payer_email']) && !empty($_POST["payer_email"])
+                    ? $donation_email = $_POST["payer_email"]
+                    : $donation_email = '';
+                isset($_POST['txn_id']) && !empty($_POST["txn_id"])
+                    ? $donation_txn_id = $_POST["txn_id"]
+                    : $donation_txn_id = '';
+                isset($_POST['ipn_track_id']) && !empty($_POST["ipn_track_id"])
+                    ? $donation_ipn_id = $_POST["ipn_track_id"]
+                    : $donation_ipn_id = '';
 
+                //$steam_id = $_POST['custom'];
+                //$donation = $_POST['payment_gross'];
+                //$donation_fee = $_POST['payment_fee'];
+                //$donation_email = $_POST['payer_email'];
+                //$donation_txn_id = $_POST['txn_id'];
+                //$donation_ipn_id = $_POST['ipn_track_id'];
 
-                $updateSQL = $db->q("INSERT INTO `invite_key` (`steam_id`, `donated`, `invited`, `donation`, `donation_fee`, `donation_email`, `donation_txn_id`, `donation_ipn_id`) VALUES (?, 1, 1, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `donated` = VALUES(`donated`), `permament` = VALUES(`permament`), `invited` = VALUES(`invited`), `donation` = VALUES(`donation`), `donation_fee` = VALUES(`donation_fee`), `donation_email` = VALUES(`donation_email`), `donation_txn_id` = VALUES(`donation_txn_id`), `donation_ipn_id` = VALUES(`donation_ipn_id`);",
-                    'iddsss',
-                    $steam_id, $donation, $donation_fee, $donation_email, $donation_txn_id, $donation_ipn_id);
+                if($donation > 2){
+                    $invited = 1;
+                }
+                else{
+                    $invited = 0;
+                }
+
+                $updateSQL = $db->q("INSERT INTO `invite_key` (`steam_id`, `donated`, `invited`, `donation`, `donation_fee`, `donation_email`, `donation_txn_id`, `donation_ipn_id`) VALUES (?, 1, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `donated` = VALUES(`donated`), `permament` = VALUES(`permament`), `invited` = VALUES(`invited`), `donation` = VALUES(`donation`), `donation_fee` = VALUES(`donation_fee`), `donation_email` = VALUES(`donation_email`), `donation_txn_id` = VALUES(`donation_txn_id`), `donation_ipn_id` = VALUES(`donation_ipn_id`);",
+                    'iiddsss',
+                    $steam_id, $invited, $donation, $donation_fee, $donation_email, $donation_txn_id, $donation_ipn_id);
             } else {
                 echo 'No DB';
             }
