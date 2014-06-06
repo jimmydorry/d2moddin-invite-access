@@ -34,14 +34,14 @@ try {
                 </tr>';
                 foreach ($donated_users as $key => $value) {
                     echo '<tr align="center">
-                    <td>' . $value['queue_id'] . '</td>
+                    <td align="left">' . $value['queue_id'] . '</td>
                     <td><a href="http://steamcommunity.com/profiles/' . $value['steam_id'] . '" target="_new">' . $value['steam_id'] . '</a></td>
                     <td>' . $value['invited'] . '</td>
                     <td>' . $value['permament'] . '</td>
                     <td>$' . number_format($value['donation'], 2) . '</td>
                     <td>$' . number_format($value['donation_fee'], 2) . '</td>
-                    <td>' . $value['donation_txn_id'] . '</td>
-                    <td>' . $value['donation_email'] . '</td>
+                    <td align="left">' . $value['donation_email'] . '</td>
+                    <td align="left">' . $value['donation_txn_id'] . '</td>
                     <td>' . $value['date_invited'] . '</td>
                 </tr>';
                 }
