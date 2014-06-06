@@ -30,9 +30,8 @@ if (!isset($_SESSION)) {
 <div id="preloader"></div>
 <div id="mash"></div>
 <div id="maximage">
-    <img src="http://i.imgur.com/kX4svU8.jpg" alt=""/>
-    <img src="http://i.imgur.com/l4zw0tO.png" alt=""/>
-    <img src="http://i.imgur.com/pbc4xVZ.png" alt=""/>
+    <img src="./assets/images/l4zw0tO.png" alt=""/>
+    <img src="./assets/images/pbc4xVZ.png" alt=""/>
 </div>
 <div id="contain">
     <section id="home">

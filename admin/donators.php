@@ -29,6 +29,7 @@ try {
                     <th>Amount</th>
                     <th>Fees</th>
                     <th>Email</th>
+                    <th>TXN ID</th>
                     <th>Date Joined</th>
                 </tr>';
                 foreach ($donated_users as $key => $value) {
@@ -39,6 +40,7 @@ try {
                     <td>' . $value['permament'] . '</td>
                     <td>$' . number_format($value['donation'], 2) . '</td>
                     <td>$' . number_format($value['donation_fee'], 2) . '</td>
+                    <td>' . $value['donation_txn_id'] . '</td>
                     <td>' . $value['donation_email'] . '</td>
                     <td>' . $value['date_invited'] . '</td>
                 </tr>';
