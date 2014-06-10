@@ -159,7 +159,7 @@ try {
                 echo '<p>Tick the "permament user" checkbox if these users are to have the permament tag, "invited user" checkbox for invited tag, etc.<br /> These options will overwrite existing tags on the users.</p>';
                 ?>
 
-                <h2><a href="./?key=$_GET['key']">REFRESH THE PAGE BEFORE PERFORMING ANY ACTION (TO CHECK YOUR SESSION)</a></h2>
+                <h2><a href="./?key=<?= $_GET['key'] ?>">REFRESH THE PAGE BEFORE PERFORMING ANY ACTION (TO CHECK YOUR SESSION)</a></h2>
 
                 <form method="post" action="./?key=<?= $_GET['key'] ?>">
                     <table border="1">
