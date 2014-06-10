@@ -88,7 +88,7 @@ if ($verified) {
                     $invited = 0;
                 }*/
 
-                $updateSQL = $db->q("INSERT INTO `invite_key` (`steam_id`, `donated`, `invited`, `donation`, `donation_fee`, `donation_email`, `donation_txn_id`, `donation_ipn_id`) VALUES (?, 1, 1, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `donated` = VALUES(`donated`), `invited` = VALUES(`invited`), `donation` = VALUES(`donation`), `donation_fee` = VALUES(`donation_fee`), `donation_email` = VALUES(`donation_email`), `donation_txn_id` = VALUES(`donation_txn_id`), `donation_ipn_id` = VALUES(`donation_ipn_id`);",
+                $updateSQL = $db->q("INSERT INTO `invite_key` (`steam_id`, `donated`, `invited`, `permament`, `donation`, `donation_fee`, `donation_email`, `donation_txn_id`, `donation_ipn_id`) VALUES (?, 1, 1, 1, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `donated` = VALUES(`donated`), `invited` = VALUES(`invited`), `permament` = VALUES(`permament`), `donation` = VALUES(`donation`), `donation_fee` = VALUES(`donation_fee`), `donation_email` = VALUES(`donation_email`), `donation_txn_id` = VALUES(`donation_txn_id`), `donation_ipn_id` = VALUES(`donation_ipn_id`);",
                     'iddsss',
                     $steam_id, $donation, $donation_fee, $donation_email, $donation_txn_id, $donation_ipn_id);
             } else {
