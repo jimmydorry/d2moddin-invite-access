@@ -22,7 +22,6 @@ try {
                     10);
 
                 if (!empty($d2moddin_user)) {
-
                     if($d2moddin_user['invited'] == 1){
                         $result['status'] = 1;
                     }
@@ -35,6 +34,9 @@ try {
                     $result['donated'] = $d2moddin_user['donated'];
                     $result['queue_id'] = $d2moddin_user['queue_id'];
                     $result['date_invited'] = $d2moddin_user['date_invited'];
+                }
+                else {
+                    $result['error'] = 'User does not exist';
                 }
             }
             else{
