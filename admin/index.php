@@ -56,15 +56,7 @@ try {
 
             if (isset($_POST['steamidInvite']) && !empty($_POST['steamidInvite'])) {
                 isset($_POST['isPermament']) && $_POST['isPermament'] == 1 ? $permamentInvite = 1 : $permamentInvite = 0;
-                isset($_POST['isDonated']) && $_POST['isDonated'] == 1 ? $donated = 1 : $donated = 0;
-                isset($_POST['donationAmount']) && !empty($_POST["donationAmount"]) && is_numeric($_POST["donationAmount"]) ? $donation = $_POST["donationAmount"] : $donation = 0.05;
-
-                if (empty($donated)) {
-                    $donation = 0;
-                } else {
-                    $permamentInvite = 1;
-                    $donation = number_format($donation, 2);
-                }
+                isset($_POST['isInvited']) && $_POST['isInvited'] == 1 ? $invitedInvite = 1 : $invitedInvite = 0;
 
                 $steamidInvite = $_POST['steamidInvite'];
                 $steamidInvite = explode('<br />', nl2br($_POST['steamidInvite']));
@@ -72,9 +64,9 @@ try {
 
                 $upd_success = $upd_failure = 0;
                 foreach ($steamidInvite as $key => $value) {
-                    $updateSQL = $db->q("INSERT INTO `invite_key` (`invited`, `permament`, `steam_id`, `donated`, `donation`) VALUES (1, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `invited` = VALUES(`invited`), `permament` = VALUES(`permament`), `donated` = VALUES(`donated`), `donation` = VALUES(`donation`);",
-                        'iiii',
-                        $permamentInvite, $value, $donated, $donation);
+                    $updateSQL = $db->q("INSERT INTO `invite_key` (`invited`, `permament`, `steam_id`) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE `invited` = VALUES(`invited`), `permament` = VALUES(`permament`);",
+                        'iii',
+                        $invitedInvite, $permamentInvite, $value);
 
                     if ($updateSQL) {
                         $upd_success++;
@@ -117,13 +109,13 @@ try {
             echo '<p>Set the number of invited users. Users already invited will lose their invite if you set it lower than
                 the current number invited (number above).</p>';
             echo '<p>Steam IDs can be pasted into the "users to invite" to mass invite people. These steam_ids must be 64bit, and only one ID per line (no spaces before or after).</p>';
-            echo '<p>Tick the "permament user" checkbox if these users are to be permamently invited.<br /> Inviting them again without the "permament user" checkbox ticked will remove them from the permament list.</p>';
+            echo '<p>Tick the "permament user" checkbox if these users are to have the permament tag, "invited user" checkbox for invited tag, etc.<br /> These options will overwrite existing tags on the users.</p>';
             ?>
 
             <form method="post" action="./?key=<?= $_GET['key'] ?>">
                 <table border="1">
                     <tr>
-                        <th>Invited Users</th>
+                        <th>Number of Users to Invite</th>
                         <td><input name="numInvited" type="number">
                         </td>
                     </tr>
@@ -131,7 +123,7 @@ try {
                         <td colspan="2">&nbsp;</td>
                     </tr>
                     <tr>
-                        <th>Users to invite</th>
+                        <th>List of users</th>
                         <td><textarea rows="4" cols="50" name="steamidInvite" type="text" value=""></textarea>
                         </td>
                     </tr>
@@ -141,7 +133,12 @@ try {
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2" align="center"><input type="submit" value="Modify"></td>
+                        <th>Invited?</th>
+                        <td><input name="isInvited" value="1" type="checkbox">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center"><input type="submit" value="Modify"><input type="submit" value="Delete"></td>
                     </tr>
                 </table>
             </form>
