@@ -239,7 +239,7 @@ try {
                     echo 'No users have donated yet.<br />';
                 }
             } else {
-                echo 'Your steam_id is not in the admin group';
+                echo 'Your steam_id is not in the admin group or your steam login session has expired';
             }
         } else {
             echo 'Incorrect admin pass';
