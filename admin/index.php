@@ -64,9 +64,16 @@ try {
 
                 $upd_success = $upd_failure = 0;
                 foreach ($steamidInvite as $key => $value) {
-                    $updateSQL = $db->q("INSERT INTO `invite_key` (`invited`, `permament`, `steam_id`) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE `invited` = VALUES(`invited`), `permament` = VALUES(`permament`);",
-                        'iii',
-                        $invitedInvite, $permamentInvite, $value);
+
+                    print_r($_POST);
+
+                    if ($upd_success == 0) {
+                        $updateSQL = $db->q("INSERT INTO `invite_key` (`invited`, `permament`, `steam_id`) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE `invited` = VALUES(`invited`), `permament` = VALUES(`permament`);",
+                            'iii',
+                            $invitedInvite, $permamentInvite, $value);
+                    } else {
+
+                    }
 
                     if ($updateSQL) {
                         $upd_success++;
@@ -78,7 +85,7 @@ try {
                 echo '<strong>Specified users have skipped the queue!</strong> (Successes: ' . $upd_success . ' | Failures: ' . $upd_failure . ')<br /><br />';
             }
 
-            if(isset($_GET['donatorlive'])){
+            if (isset($_GET['donatorlive'])) {
                 $updateSQL = $db->q("UPDATE `invite_key` SET `invited` = 1 WHERE `donated` = 1;");
 
                 if ($updateSQL) {
@@ -88,7 +95,7 @@ try {
                 }
             }
 
-            if(isset($_GET['donatorliveperma'])){
+            if (isset($_GET['donatorliveperma'])) {
                 $updateSQL = $db->q("UPDATE `invite_key` SET `invited` = 1, `permament` = 1 WHERE `donated` = 1;");
 
                 if ($updateSQL) {
@@ -103,9 +110,9 @@ try {
 
 
             echo number_format($site_stats['total_users']) . ' total users in queue<br />';
-            echo number_format($site_stats['total_users_invited']) . ' users invited (no other flags: '.$site_stats['total_normal_users_invited'].')<br />';
-            echo number_format($site_stats['total_permament_users']) . ' users with the permament flag (invited: '.$site_stats['total_permament_users_invited'].')<br />';
-            echo number_format($site_stats['total_donated_users']) . ' users with the donator flag (invited: '.$site_stats['total_donated_users_invited'].')<br />';
+            echo number_format($site_stats['total_users_invited']) . ' users invited (no other flags: ' . number_format($site_stats['total_normal_users_invited']) . ')<br />';
+            echo number_format($site_stats['total_permament_users']) . ' users with the permament flag (invited: ' . number_format($site_stats['total_permament_users_invited']) . ')<br />';
+            echo number_format($site_stats['total_donated_users']) . ' users with the donator flag (invited: ' . number_format($site_stats['total_donated_users_invited']) . ')<br />';
             echo '<p>Set the number of invited users. Users already invited will lose their invite if you set it lower than
                 the current number invited (number above).</p>';
             echo '<p>Steam IDs can be pasted into the "users to invite" to mass invite people. These steam_ids must be 64bit, and only one ID per line (no spaces before or after).</p>';
@@ -115,7 +122,7 @@ try {
             <form method="post" action="./?key=<?= $_GET['key'] ?>">
                 <table border="1">
                     <tr>
-                        <th>Number of Users to Invite</th>
+                        <th align="left">Number of Users<br/>to Invite</th>
                         <td><input name="numInvited" type="number">
                         </td>
                     </tr>
@@ -123,35 +130,36 @@ try {
                         <td colspan="2">&nbsp;</td>
                     </tr>
                     <tr>
-                        <th>List of users</th>
+                        <th align="left">List of users</th>
                         <td><textarea rows="4" cols="50" name="steamidInvite" type="text" value=""></textarea>
                         </td>
                     </tr>
                     <tr>
-                        <th>Permament?</th>
+                        <th align="left">Permament?</th>
                         <td><input name="isPermament" value="1" type="checkbox">
                         </td>
                     </tr>
                     <tr>
-                        <th>Invited?</th>
+                        <th align="left">Invited?</th>
                         <td><input name="isInvited" value="1" type="checkbox">
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2" align="center"><input type="submit" value="Modify"><input type="submit" value="Delete"></td>
+                        <td colspan="2" align="center"><input name="submit" type="submit" value="Modify"><input
+                                name="submit" type="submit" value="Delete"></td>
                     </tr>
                 </table>
             </form>
 
             <?php
 
-            echo '<br /><a target="_new" href="./add_donators.php?key='.$admin_pass.'">Manually add donators here</a><br />';
-            echo '<a target="_new" href="./?key='.$admin_pass.'&donatorlive">CLICK HERE TO INVITE ALL DONATORS</a><br />';
-            echo '<a target="_new" href="./?key='.$admin_pass.'&donatorliveperma">CLICK HERE TO PERMA INVITE ALL DONATORS</a><br />';
+            echo '<br /><a target="_new" href="./add_donators.php?key=' . $admin_pass . '">Manually add donators here</a><br />';
+            echo '<a target="_new" href="./?key=' . $admin_pass . '&donatorlive">CLICK HERE TO INVITE ALL DONATORS</a><br />';
+            echo '<a target="_new" href="./?key=' . $admin_pass . '&donatorliveperma">CLICK HERE TO PERMA INVITE ALL DONATORS</a><br />';
 
             $permament_users = $db->q("SELECT * FROM `invite_key` WHERE `permament` = 1 ORDER BY queue_id ASC LIMIT 0, 20;");
 
-            echo '<h1>Permament Users (<a target="_new" href="./permament.php?key='.$admin_pass.'">rest here</a>)</h1>';
+            echo '<h1>Permament Users (<a target="_new" href="./permament.php?key=' . $admin_pass . '">rest here</a>)</h1>';
             if (!empty($permament_users)) {
                 echo '<table border="1">';
                 echo '<tr align="center">
@@ -175,7 +183,7 @@ try {
 
             $donated_users = $db->q("SELECT * FROM `invite_key` WHERE `donated` = 1 AND `donation_txn_id` IS NOT NULL ORDER BY `donation` DESC LIMIT 0, 20;");
 
-            echo '<h1>Top 20 Donators (<a target="_new" href="./donators.php?key='.$admin_pass.'">rest here</a>)</h1>';
+            echo '<h1>Top 20 Donators (<a target="_new" href="./donators.php?key=' . $admin_pass . '">rest here</a>)</h1>';
             if (!empty($donated_users)) {
                 echo '<table border="1">';
                 echo '<tr align="center">
