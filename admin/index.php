@@ -58,21 +58,30 @@ try {
                 isset($_POST['isPermament']) && $_POST['isPermament'] == 1 ? $permamentInvite = 1 : $permamentInvite = 0;
                 isset($_POST['isInvited']) && $_POST['isInvited'] == 1 ? $invitedInvite = 1 : $invitedInvite = 0;
 
+                if (isset($_POST['submit'])) {
+                    if ($_POST['submit'] == 'Modify') {
+                        $sql_action = 'm';
+                    } else if ($_POST['submit'] == 'Delete') {
+                        $sql_action = 'd';
+                    }
+                } else {
+                    $sql_action = 'm';
+                }
+
                 $steamidInvite = $_POST['steamidInvite'];
                 $steamidInvite = explode('<br />', nl2br($_POST['steamidInvite']));
                 //$sql = '(' . implode(', ', $steamidInvite) . ')';
 
                 $upd_success = $upd_failure = 0;
                 foreach ($steamidInvite as $key => $value) {
-
-                    print_r($_POST);
-
-                    if ($upd_success == 0) {
+                    if ($sql_action == 'm') {
                         $updateSQL = $db->q("INSERT INTO `invite_key` (`invited`, `permament`, `steam_id`) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE `invited` = VALUES(`invited`), `permament` = VALUES(`permament`);",
                             'iii',
                             $invitedInvite, $permamentInvite, $value);
-                    } else {
-
+                    } else if ($sql_action == 'd') {
+                        $updateSQL = $db->q("DELETE FROM `invite_key` WHERE `steam_id` = ?;",
+                            'i',
+                            $value);
                     }
 
                     if ($updateSQL) {
