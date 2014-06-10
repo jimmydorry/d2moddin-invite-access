@@ -429,7 +429,6 @@ h1, h2, h3 {
 
 #index a:hover, .modal a:hover {
     text-shadow: 0 0 10px rgba(255, 255, 255, .25);
-    color: #ffc000;
 }
 
 .modal h3 {
