@@ -29,11 +29,21 @@ try {
                         $result['error'] = 'User not invited';
                     }
 
-                    $result['invited'] = $d2moddin_user['invited'];
-                    $result['permament'] = $d2moddin_user['permament'];
-                    $result['donated'] = $d2moddin_user['donated'];
-                    $result['queue_id'] = $d2moddin_user['queue_id'];
-                    $result['date_invited'] = $d2moddin_user['date_invited'];
+                    !empty($d2moddin_user['invited'])
+                        ? $result['invited'] = $d2moddin_user['invited']
+                        : NULL;
+                    !empty($d2moddin_user['permament'])
+                        ? $result['permament'] = $d2moddin_user['permament']
+                        : NULL;
+                    !empty($d2moddin_user['donated'])
+                        ? $result['donated'] = $d2moddin_user['donated']
+                        : NULL;
+                    !empty($d2moddin_user['queue_id'])
+                        ? $result['queue_id'] = $d2moddin_user['queue_id']
+                        : NULL;
+                    !empty($d2moddin_user['date_invited'])
+                        ? $result['date_invited'] = $d2moddin_user['date_invited']
+                        : NULL;
                 }
                 else {
                     $result['error'] = 'User does not exist';
