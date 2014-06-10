@@ -198,7 +198,7 @@ try {
                 <form method="post" action="./?key=<?= $_GET['key'] ?>">
                     <table border="1">
                         <tr>
-                            <th align="left">List of users</th>
+                            <th align="left">List of admins</th>
                             <td><textarea rows="4" cols="50" name="steamidInvite" type="text" value=""></textarea>
                             </td>
                         </tr>
