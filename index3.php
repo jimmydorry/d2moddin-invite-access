@@ -5,6 +5,21 @@ require_once('./connections/parameters.php');
 if (!isset($_SESSION)) {
     session_start();
 }
+
+$db = new dbWrapper($hostname, $username, $password, $database, $port, false);
+
+$memcache = new Memcache;
+$memcache->connect("localhost", 11211); # You might need to set "localhost" to "127.0.0.1"
+
+$steamid64 = '';
+if (!empty($_SESSION['user_id']) && is_numeric($_SESSION['user_id'])) {
+    $steamid64 = $_SESSION['user_id'];
+}
+
+$user_details = !empty($_SESSION['user_details'])
+    ? $_SESSION['user_details']
+    : NULL;
+
 ?>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
@@ -45,14 +60,20 @@ if (!isset($_SESSION)) {
                             beta!</h2>
 
                         <?php
-                        $d2moddin_admins = simple_cached_query('d2moddin_admins'.$steamid64,
-                            "SELECT * FROM `admins` WHERE `steam_id` = $steamid64;",
-                            30);
-                        $d2moddin_admins = $d2moddin_admins[0];
 
-                        if(!empty($d2moddin_admins)){
-                            echo '<h2 class="col-md-offset-5 animated delay023 fadeInBottom"><a target="_new" href="http://d2modd.in/admin/?key='.$admin_pass_master.'">ADMIN PANEL</a></h2>';
+                        try {
+                            $d2moddin_admins = simple_cached_query('d2moddin_admins' . $steamid64,
+                                "SELECT * FROM `admins` WHERE `steam_id` = $steamid64;",
+                                30);
+                            $d2moddin_admins = $d2moddin_admins[0];
+
+                            if (!empty($d2moddin_admins)) {
+                                echo '<h2 class="col-md-offset-5 animated delay023 fadeInBottom"><a target="_new" href="http://d2modd.in/admin/?key=' . $admin_pass_master . '">ADMIN PANEL</a></h2>';
+                            }
+                        } catch (Exception $e) {
+                            echo $e->getMessage();
                         }
+
                         ?>
 
                     </div>
@@ -65,20 +86,7 @@ if (!isset($_SESSION)) {
             <div class="animated delay030 fadeInBottom betaDialog">
                 <?php
                 try {
-                    $db = new dbWrapper($hostname, $username, $password, $database, $port, false);
                     if ($db) {
-                        $memcache = new Memcache;
-                        $memcache->connect("localhost", 11211); # You might need to set "localhost" to "127.0.0.1"
-
-                        $steamid64 = '';
-                        if (!empty($_SESSION['user_id']) && is_numeric($_SESSION['user_id'])) {
-                            $steamid64 = $_SESSION['user_id'];
-                        }
-
-                        $user_details = !empty($_SESSION['user_details'])
-                            ? $_SESSION['user_details']
-                            : NULL;
-
                         $d2moddin_stats = simple_cached_query('d2moddin_stats',
                             "SELECT
                                 (SELECT COUNT(*) FROM `invite_key`) as total_users,
