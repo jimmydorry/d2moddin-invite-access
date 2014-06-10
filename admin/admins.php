@@ -16,7 +16,7 @@ try {
 
             $admin_users = $db->q("SELECT * FROM `admins` ORDER BY `date_added` DESC;");
 
-            echo '<h1>Donators (~$'. number_format(($donated_amount[0]['donation_total'] - $donated_amount[0]['donation_total_fees']), 2).')</h1>';
+            echo '<h1>Admins</h1>';
             if (!empty($admin_users)) {
                 echo '<table border="1">';
                 echo '<tr align="center">
