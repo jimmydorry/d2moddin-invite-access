@@ -91,7 +91,7 @@ try {
                     }
                 }
 
-                echo '<strong>Specified users have skipped the queue!</strong> (Successes: ' . $upd_success . ' | Failures: ' . $upd_failure . ')<br /><br />';
+                echo '<strong>Specified users have been modified!</strong> (Successes: ' . $upd_success . ' | Failures: ' . $upd_failure . ')<br /><br />';
             }
 
             if (isset($_GET['donatorlive'])) {
