@@ -20,6 +20,7 @@ try {
                 $d2moddin_user = simple_cached_query('d2moddin_user' . $user_id,
                     "SELECT * FROM `invite_key` WHERE `steam_id` = " . $user_id . " LIMIT 0,1;",
                     10);
+                $d2moddin_user =  $d2moddin_user[0];
 
                 if (!empty($d2moddin_user)) {
                     if($d2moddin_user['invited'] == 1){
