@@ -180,8 +180,8 @@ try {
                 <?php
 
                 echo '<br /><a target="_new" href="./add_donators.php?key=' . $admin_pass . '">Manually add donators here</a><br />';
-                echo '<a target="_new" href="./?key=' . $admin_pass . '&donatorlive">CLICK HERE TO INVITE ALL DONATORS</a><br />';
-                echo '<a target="_new" href="./?key=' . $admin_pass . '&donatorliveperma">CLICK HERE TO PERMA INVITE ALL DONATORS</a><br />';
+                //echo '<a target="_new" href="./?key=' . $admin_pass . '&donatorlive">CLICK HERE TO INVITE ALL DONATORS</a><br />';
+                //echo '<a target="_new" href="./?key=' . $admin_pass . '&donatorliveperma">CLICK HERE TO PERMA INVITE ALL DONATORS</a><br />';
 
                 $permament_users = $db->q("SELECT * FROM `invite_key` WHERE `permament` = 1 ORDER BY queue_id ASC LIMIT 0, 20;");
 
