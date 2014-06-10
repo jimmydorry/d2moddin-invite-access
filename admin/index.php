@@ -280,7 +280,7 @@ try {
                     <th>Level</th>
                     <th>Date Joined</th>
                 </tr>';
-                    foreach ($donated_users as $key => $value) {
+                    foreach ($admin_users as $key => $value) {
                         echo '<tr align="center">
                     <td><a href="http://steamcommunity.com/profiles/' . $value['steam_id'] . '" target="_new">' . $value['steam_id'] . '</a></td>
                     <td>' . $value['level'] . '</td>
