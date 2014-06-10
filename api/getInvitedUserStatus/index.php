@@ -18,18 +18,23 @@ try {
         if (!empty($user_id) && !empty($api_key)) {
             if ($api_key == $getdotastats_api_key_master) {
                 $d2moddin_user = simple_cached_query('d2moddin_user' . $user_id,
-                    "SELECT * FROM `invite_key` WHERE `steam_id` = " . $user_id . " AND `invited` = 1 LIMIT 0,1;",
+                    "SELECT * FROM `invite_key` WHERE `steam_id` = " . $user_id . " LIMIT 0,1;",
                     10);
 
                 if (!empty($d2moddin_user)) {
-                    $result['status'] = 1;
+
+                    if($d2moddin_user['invited'] == 1){
+                        $result['status'] = 1;
+                    }
+                    else {
+                        $result['error'] = 'User not invited';
+                    }
+
                     $result['invited'] = $d2moddin_user['invited'];
                     $result['permament'] = $d2moddin_user['permament'];
                     $result['donated'] = $d2moddin_user['donated'];
                     $result['queue_id'] = $d2moddin_user['queue_id'];
                     $result['date_invited'] = $d2moddin_user['date_invited'];
-                } else {
-                    $result['error'] = 'User not invited';
                 }
             }
             else{
