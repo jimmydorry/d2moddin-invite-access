@@ -23,6 +23,11 @@ try {
 
                 if (!empty($d2moddin_user)) {
                     $result['status'] = 1;
+                    $result['invited'] = $d2moddin_user['invited'];
+                    $result['permament'] = $d2moddin_user['permament'];
+                    $result['donated'] = $d2moddin_user['donated'];
+                    $result['queue_id'] = $d2moddin_user['queue_id'];
+                    $result['date_invited'] = $d2moddin_user['date_invited'];
                 } else {
                     $result['error'] = 'User not invited';
                 }
