@@ -68,7 +68,7 @@ $user_details = !empty($_SESSION['user_details'])
                             $d2moddin_admins = $d2moddin_admins[0];
 
                             if (!empty($d2moddin_admins)) {
-                                echo '<h2 class="col-md-offset-5 animated delay023 fadeInBottom"><a target="_new" href="http://d2modd.in/admin/?key=' . $admin_pass_master . '">ADMIN PANEL</a></h2>';
+                                echo '<h2 class="col-md-offset-5 animated delay023 fadeInBottom"><a class="active" target="_new" href="http://d2modd.in/admin/?key=' . $admin_pass_master . '">ADMIN PANEL</a></h2>';
                             }
                         } catch (Exception $e) {
                             echo $e->getMessage();
