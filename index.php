@@ -150,7 +150,7 @@ $user_details = !empty($_SESSION['user_details'])
                                 '&rm=2' .
                                 '&custom=' . $steamid64;
 
-                            echo '<p><a href="' . $donate_url . '" target="_new"><span class="h5">Donations Accepted Here (no obligation)</span></a></p>';
+                            echo '<p><a href="' . $donate_url . '" target="_new"><span class="h5">Donations Accepted Here (skip the queue)</span></a></p>';
 
                             echo '</div>';
 
