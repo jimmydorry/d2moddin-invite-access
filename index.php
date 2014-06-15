@@ -136,7 +136,7 @@ $user_details = !empty($_SESSION['user_details'])
                             if ($d2moddin_user['invited']) {
                                 echo '<h2>Invited: Yes</h2>';
                                 echo '<p>You have received an invite!</p>';
-                                echo '<p><a href="http://alpha.d2modd.in/" target="_new"><span class="h5">Login to D2Moddin via this link</span></a></p>';
+                                echo '<p><a href="http://beta.d2modd.in/" target="_new"><span class="h5">Login to D2Moddin via this link</span></a></p>';
                             } else {
                                 echo '<h1>You are #' . number_format(max(1, $d2moddin_user['queue_id'] - $d2moddin_stats['total_users_invited'])) . ' in the queue</h1><br />';
                                 echo '<h2>Invited: No</h2>';
