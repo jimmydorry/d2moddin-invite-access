@@ -16,7 +16,7 @@ try {
 
             $banned_users = $db->q("SELECT * FROM `invite_key` WHERE `banned` = 1 ORDER BY queue_id ASC;");
 
-            echo '<h1>Permament Users (no donors)</h1>';
+            echo '<h1>Banned Users</h1>';
             if (!empty($banned_users)) {
                 echo '<table border="1">';
                 echo '<tr align="center">
