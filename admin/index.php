@@ -280,8 +280,9 @@ try {
                 }
 
                 $donated_users = $db->q("SELECT * FROM `invite_key` WHERE `donated` = 1 AND `donation_txn_id` IS NOT NULL ORDER BY `donation` DESC LIMIT 0, 20;");
+                $donated_amount = $db->q("SELECT SUM(`donation`) as donation_total, SUM(`donation_fee`) as donation_total_fees FROM `invite_key` WHERE `donated` = 1 AND `donation_txn_id` IS NOT NULL;");
 
-                echo '<h1>Top 20 Donators (<a target="_new" href="./donators.php?key=' . $admin_pass . '">rest here</a>)</h1>';
+                echo '<h1>Top 20 Donators (<a target="_new" href="./donators.php?key=' . $admin_pass . '">rest here</a>) ~$'. number_format(($donated_amount[0]['donation_total'] - $donated_amount[0]['donation_total_fees']), 2).')</h1>';
                 if (!empty($donated_users)) {
                     echo '<table border="1">';
                     echo '<tr align="center">
