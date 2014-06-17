@@ -78,7 +78,7 @@ try {
                     isset($_POST['isInvited']) && $_POST['isInvited'] == 1
                         ? $invitedInvite = 1
                         : $invitedInvite = 0;
-                    isset($_POST['isBannedReason']) && $_POST['isBannedReason'] == 1
+                    isset($_POST['isBannedReason']) && !empty($_POST['isBannedReason'])
                         ? $bannedReason = htmlentities($_POST['isBannedReason'])
                         : $bannedReason = 'No reason provided';
 
@@ -202,11 +202,6 @@ try {
                             </td>
                         </tr>
                         <tr>
-                            <th align="left">Banned?</th>
-                            <td><input name="isBanned" value="1" type="checkbox">
-                            </td>
-                        </tr>
-                        <tr>
                             <td colspan="2" align="center"><input name="submit" type="submit" value="Modify"><input
                                     name="submit" type="submit" value="Delete"></td>
                         </tr>
@@ -224,7 +219,7 @@ try {
                         </tr>
                         <tr>
                             <th align="left">Ban reason</th>
-                            <td><textarea rows="4" cols="50" name="isBannedReason" type="text" value=""></textarea>
+                            <td><textarea rows="4" cols="50" name="isBannedReason" type="text" value="No reason provided"></textarea>
                             </td>
                         </tr>
                         <tr>
