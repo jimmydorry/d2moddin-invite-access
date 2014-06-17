@@ -298,9 +298,9 @@ try {
                     echo 'No admin users yet.<br />';
                 }
 
-                $banned_users = $db->q("SELECT * FROM `invite_key` WHERE `banned` = 1 ORDER BY `date_added` DESC LIMIT 0, 20;");
+                $banned_users = $db->q("SELECT * FROM `invite_key` WHERE `banned` = 1 ORDER BY `date_invited` DESC LIMIT 0, 20;");
 
-                echo '<h1>Top 20 Banned Users (<a target="_new" href="./bans.php?key=' . $admin_pass . '">rest here</a>)</h1>';
+                echo '<h1>Top 20 Banned Users (<a target="_new" href="./banned.php?key=' . $admin_pass . '">rest here</a>)</h1>';
                 if (!empty($banned_users)) {
                     echo '<table border="1">';
                     echo '<tr align="center">
