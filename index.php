@@ -137,7 +137,15 @@ $user_details = !empty($_SESSION['user_details'])
                                 echo '<h2>Invited: Yes</h2>';
                                 echo '<p>You have received an invite!</p>';
                                 echo '<p><a href="http://beta.d2modd.in/" target="_new"><span class="h5">Login to D2Moddin via this link</span></a></p>';
-                            } else {
+                            }
+                            else if($d2moddin_user['banned']){
+                                echo '<h2>Invited: No</h2>';
+                                echo '<p>You have been banned!</p>';
+                                echo '<p><strong>Reason:</strong> '.$d2moddin_user['banned_reason'].'</p>';
+
+                                echo '<p><a href="http://steamcommunity.com/groups/D2Moddin/discussions/6/" target="_new"><span class="h5">You can make a thread in the bans sub-forum</span></a></p>';
+                            }
+                            else {
                                 echo '<h1>You are #' . number_format(max(1, $d2moddin_user['queue_id'] - $d2moddin_stats['total_users_invited'])) . ' in the queue</h1><br />';
                                 echo '<h2>Invited: No</h2>';
                             }

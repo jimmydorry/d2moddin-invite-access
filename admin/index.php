@@ -72,15 +72,26 @@ try {
                 }
 
                 if (isset($_POST['steamidInvite']) && !empty($_POST['steamidInvite'])) {
-                    isset($_POST['isPermament']) && $_POST['isPermament'] == 1 ? $permamentInvite = 1 : $permamentInvite = 0;
-                    isset($_POST['isBanned']) && $_POST['isBanned'] == 1 ? $bannedInvite = 1 : $bannedInvite = 0;
-                    isset($_POST['isInvited']) && $_POST['isInvited'] == 1 ? $invitedInvite = 1 : $invitedInvite = 0;
+                    isset($_POST['isPermament']) && $_POST['isPermament'] == 1
+                        ? $permamentInvite = 1
+                        : $permamentInvite = 0;
+                    isset($_POST['isInvited']) && $_POST['isInvited'] == 1
+                        ? $invitedInvite = 1
+                        : $invitedInvite = 0;
+                    isset($_POST['isBannedReason']) && $_POST['isBannedReason'] == 1
+                        ? $bannedReason = htmlentities($_POST['isBannedReason'])
+                        : $bannedReason = 'No reason provided';
 
                     if (isset($_POST['submit'])) {
                         if ($_POST['submit'] == 'Modify') {
                             $sql_action = 'm';
                         } else if ($_POST['submit'] == 'Delete') {
                             $sql_action = 'd';
+                        } else if ($_POST['submit'] == 'Ban') {
+                            $invitedInvite = 0;
+                            $permamentInvite = 0;
+                            $bannedInvite = 1;
+                            $sql_action = 'b';
                         } else if ($_POST['submit'] == 'Adminify') {
                             $sql_action = 'a';
                         } else if ($_POST['submit'] == 'Adminify_Delete') {
@@ -97,9 +108,13 @@ try {
                     $upd_success = $upd_failure = 0;
                     foreach ($steamidInvite as $key => $value) {
                         if ($sql_action == 'm') {
-                            $updateSQL = $db->q("INSERT INTO `invite_key` (`invited`, `permament`, `banned`, `steam_id`) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE `invited` = VALUES(`invited`), `permament` = VALUES(`permament`), `banned` = VALUES(`banned`);",
-                                'iiii',
-                                $invitedInvite, $permamentInvite, $bannedInvite, $value);
+                            $updateSQL = $db->q("INSERT INTO `invite_key` (`invited`, `permament`, `steam_id`) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE `invited` = VALUES(`invited`), `permament` = VALUES(`permament`);",
+                                'iii',
+                                $invitedInvite, $permamentInvite, $value);
+                        } else if ($sql_action == 'b') {
+                            $updateSQL = $db->q("INSERT INTO `invite_key` (`invited`, `permament`, `banned`, `banned_reason`, `steam_id`) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE `invited` = VALUES(`invited`), `permament` = VALUES(`permament`), `banned` = VALUES(`banned`), `banned_reason` = VALUES(`banned_reason`);",
+                                'iiisi',
+                                $invitedInvite, $permamentInvite, $bannedInvite, $bannedReason, $value);
                         } else if ($sql_action == 'd') {
                             $updateSQL = $db->q("DELETE FROM `invite_key` WHERE `steam_id` = ?;",
                                 'i',
@@ -199,6 +214,24 @@ try {
                 </form>
 
                 <br/>
+
+                <form method="post" action="./?key=<?= $_GET['key'] ?>">
+                    <table border="1">
+                        <tr>
+                            <th align="left">List of users</th>
+                            <td><textarea rows="4" cols="50" name="steamidInvite" type="text" value=""></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th align="left">Ban reason</th>
+                            <td><textarea rows="4" cols="50" name="isBannedReason" type="text" value="No reason provided"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="center"><input name="submit" type="submit" value="Ban"></td>
+                        </tr>
+                    </table>
+                </form>
 
                 <form method="post" action="./?key=<?= $_GET['key'] ?>">
                     <table border="1">
@@ -306,12 +339,14 @@ try {
                     echo '<tr align="center">
                     <th>Queue ID</th>
                     <th>Steam ID</th>
+                    <th>Reason</th>
                     <th>Date Joined</th>
                 </tr>';
                     foreach ($banned_users as $key => $value) {
                         echo '<tr align="center">
                     <td>' . $value['queue_id'] . '</td>
                     <td><a href="http://steamcommunity.com/profiles/' . $value['steam_id'] . '" target="_new">' . $value['steam_id'] . '</a></td>
+                    <td>' . $value['banned_reason'] . '</td>
                     <td>' . $value['date_invited'] . '</td>
                 </tr>';
                     }
