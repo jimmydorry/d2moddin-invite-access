@@ -133,32 +133,31 @@ $user_details = !empty($_SESSION['user_details'])
                             echo '<div class="text-center">';
                             echo '<a href="http://steamcommunity.com/profiles/' . $steamid64 . '" target="_new"><img src="' . $user_details->avatarmedium . '" /></a><br /><br />';
 
-                            if ($d2moddin_user['invited']) {
+                            if ($d2moddin_user['banned']) {
+                                echo '<h2>Invited: No</h2>';
+                                echo '<p>You have been banned!</p>';
+                                echo '<p><strong>Reason:</strong> ' . $d2moddin_user['banned_reason'] . '</p>';
+                                echo '<p><a href="http://steamcommunity.com/groups/D2Moddin/discussions/6/" target="_new"><span class="h5">You can make a thread in the bans sub-forum</span></a></p>';
+                            } else if ($d2moddin_user['invited']) {
                                 echo '<h2>Invited: Yes</h2>';
                                 echo '<p>You have received an invite!</p>';
                                 echo '<p><a href="http://beta.d2modd.in/" target="_new"><span class="h5">Login to D2Moddin via this link</span></a></p>';
-                            }
-                            else if($d2moddin_user['banned']){
-                                echo '<h2>Invited: No</h2>';
-                                echo '<p>You have been banned!</p>';
-                                echo '<p><strong>Reason:</strong> '.$d2moddin_user['banned_reason'].'</p>';
-
-                                echo '<p><a href="http://steamcommunity.com/groups/D2Moddin/discussions/6/" target="_new"><span class="h5">You can make a thread in the bans sub-forum</span></a></p>';
-                            }
-                            else {
+                            } else {
                                 echo '<h1>You are #' . number_format(max(1, $d2moddin_user['queue_id'] - $d2moddin_stats['total_users_invited'])) . ' in the queue</h1><br />';
                                 echo '<h2>Invited: No</h2>';
                             }
                             echo '<p>Your original queue id was ' . number_format($d2moddin_user['queue_id']) . '</p>';
 
-                            $donate_url = 'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=BY9D59PJTKRA4&lc=US&item_name=D2Moddin&item_number=stream&currency_code=USD&bn=PP%2dDonationsBF%3apanel%2d51694185%2dimage%2dc3579668e9e7350a%2d320%2epng%3aNonHosted';
-                            $donate_url .= '&return=' . urlencode('http://d2modd.in/?thanks') .
-                                '&notify_url=' . urlencode('http://d2modd.in/donate/IPN_noperks.php') .
-                                '&cancel_return=' . urlencode('http://d2modd.in/') .
-                                '&rm=2' .
-                                '&custom=' . $steamid64;
+                            if (!$d2moddin_user['banned']) {
+                                $donate_url = 'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=BY9D59PJTKRA4&lc=US&item_name=D2Moddin&item_number=stream&currency_code=USD&bn=PP%2dDonationsBF%3apanel%2d51694185%2dimage%2dc3579668e9e7350a%2d320%2epng%3aNonHosted';
+                                $donate_url .= '&return=' . urlencode('http://d2modd.in/?thanks') .
+                                    '&notify_url=' . urlencode('http://d2modd.in/donate/IPN_noperks.php') .
+                                    '&cancel_return=' . urlencode('http://d2modd.in/') .
+                                    '&rm=2' .
+                                    '&custom=' . $steamid64;
 
-                            echo '<p><a href="' . $donate_url . '" target="_new"><span class="h5">Donations Accepted Here (skip the queue for $2 or higher)</span></a></p>';
+                                echo '<p><a href="' . $donate_url . '" target="_new"><span class="h5">Donations Accepted Here (skip the queue for $2 or higher)</span></a></p>';
+                            }
 
                             echo '</div>';
 
