@@ -176,6 +176,7 @@ try {
                 <h2><a href="./?key=<?= $_GET['key'] ?>">REFRESH THE PAGE BEFORE PERFORMING ANY ACTION (TO CHECK YOUR
                         SESSION)</a></h2>
 
+                <h2>Modify Users</h2>
                 <form method="post" action="./?key=<?= $_GET['key'] ?>">
                     <table border="1">
                         <tr>
@@ -208,8 +209,7 @@ try {
                     </table>
                 </form>
 
-                <br/>
-
+                <h2>Ban Users</h2>
                 <form method="post" action="./?key=<?= $_GET['key'] ?>">
                     <table border="1">
                         <tr>
@@ -219,7 +219,7 @@ try {
                         </tr>
                         <tr>
                             <th align="left">Ban reason</th>
-                            <td><textarea rows="4" cols="50" name="isBannedReason" type="text" value="No reason provided"></textarea>
+                            <td><textarea rows="4" cols="50" name="isBannedReason" type="text" value=""></textarea>
                             </td>
                         </tr>
                         <tr>
@@ -228,6 +228,7 @@ try {
                     </table>
                 </form>
 
+                <h2>Modify Admins</h2>
                 <form method="post" action="./?key=<?= $_GET['key'] ?>">
                     <table border="1">
                         <tr>
