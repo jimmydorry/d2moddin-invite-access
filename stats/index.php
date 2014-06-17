@@ -55,7 +55,7 @@ try {
             'pageSize' => 6);
 
         echo '<div id="about" style="width: 600px;">';
-        echo '<p>This graph shows the distribution of people joining the queue.</p>';
+        echo '<h2>Plot of people joining the queue over time</h2>';
         echo '</div>';
 
         $signup_stats = simple_cached_query('d2moddin_stats_queue_joins',
