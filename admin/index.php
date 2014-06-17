@@ -303,7 +303,7 @@ try {
                     <td>' . $value['permament'] . '</td>
                     <td>$' . number_format($value['donation'], 2) . '</td>
                     <td>$' . number_format($value['donation_fee'], 2) . '</td>
-                    <td>' . $value['donation_email'] . '</td>
+                    <td align="left">' . $value['donation_email'] . '</td>
                     <td>' . $value['date_invited'] . '</td>
                 </tr>';
                     }
