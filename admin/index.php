@@ -92,6 +92,12 @@ try {
                             $permamentInvite = 0;
                             $bannedInvite = 1;
                             $sql_action = 'b';
+                        } else if ($_POST['submit'] == 'Un-Ban') {
+                            $invitedInvite = 1;
+                            $permamentInvite = 0;
+                            $bannedInvite = 0;
+                            $bannedReason = NULL;
+                            $sql_action = 'b';
                         } else if ($_POST['submit'] == 'Adminify') {
                             $sql_action = 'a';
                         } else if ($_POST['submit'] == 'Adminify_Delete') {
@@ -223,7 +229,7 @@ try {
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2" align="center"><input name="submit" type="submit" value="Ban"></td>
+                            <td colspan="2" align="center"><input name="submit" type="submit" value="Ban"><input name="submit" type="submit" value="Un-Ban"></td>
                         </tr>
                     </table>
                 </form>
