@@ -81,7 +81,7 @@ if ($verified) {
                 //$donation_txn_id = $_POST['txn_id'];
                 //$donation_ipn_id = $_POST['ipn_track_id'];
 
-                if($donation >= 1.99){
+                if($donation >= 0.99){
                     $invited = 1;
                     $permament = 1;
                 }
