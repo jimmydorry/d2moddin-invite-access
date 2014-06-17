@@ -224,7 +224,7 @@ try {
                         </tr>
                         <tr>
                             <th align="left">Ban reason</th>
-                            <td><textarea rows="4" cols="50" name="isBannedReason" type="text" value="No reason provided"></textarea>
+                            <td><textarea rows="4" cols="50" name="isBannedReason" type="text" value=""></textarea>
                             </td>
                         </tr>
                         <tr>
