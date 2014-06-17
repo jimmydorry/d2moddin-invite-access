@@ -73,6 +73,7 @@ try {
 
                 if (isset($_POST['steamidInvite']) && !empty($_POST['steamidInvite'])) {
                     isset($_POST['isPermament']) && $_POST['isPermament'] == 1 ? $permamentInvite = 1 : $permamentInvite = 0;
+                    isset($_POST['isBanned']) && $_POST['isBanned'] == 1 ? $bannedInvite = 1 : $bannedInvite = 0;
                     isset($_POST['isInvited']) && $_POST['isInvited'] == 1 ? $invitedInvite = 1 : $invitedInvite = 0;
 
                     if (isset($_POST['submit'])) {
@@ -80,11 +81,9 @@ try {
                             $sql_action = 'm';
                         } else if ($_POST['submit'] == 'Delete') {
                             $sql_action = 'd';
-                        }
-                        else if ($_POST['submit'] == 'Adminify') {
+                        } else if ($_POST['submit'] == 'Adminify') {
                             $sql_action = 'a';
-                        }
-                        else if ($_POST['submit'] == 'Adminify_Delete') {
+                        } else if ($_POST['submit'] == 'Adminify_Delete') {
                             $sql_action = 'ad';
                         }
                     } else {
@@ -98,9 +97,9 @@ try {
                     $upd_success = $upd_failure = 0;
                     foreach ($steamidInvite as $key => $value) {
                         if ($sql_action == 'm') {
-                            $updateSQL = $db->q("INSERT INTO `invite_key` (`invited`, `permament`, `steam_id`) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE `invited` = VALUES(`invited`), `permament` = VALUES(`permament`);",
-                                'iii',
-                                $invitedInvite, $permamentInvite, $value);
+                            $updateSQL = $db->q("INSERT INTO `invite_key` (`invited`, `permament`, `banned`, `steam_id`) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE `invited` = VALUES(`invited`), `permament` = VALUES(`permament`), `banned` = VALUES(`banned`);",
+                                'iiii',
+                                $invitedInvite, $permamentInvite, $bannedInvite, $value);
                         } else if ($sql_action == 'd') {
                             $updateSQL = $db->q("DELETE FROM `invite_key` WHERE `steam_id` = ?;",
                                 'i',
@@ -159,7 +158,8 @@ try {
                 echo '<p>Tick the "permament user" checkbox if these users are to have the permament tag, "invited user" checkbox for invited tag, etc.<br /> These options will overwrite existing tags on the users.</p>';
                 ?>
 
-                <h2><a href="./?key=<?= $_GET['key'] ?>">REFRESH THE PAGE BEFORE PERFORMING ANY ACTION (TO CHECK YOUR SESSION)</a></h2>
+                <h2><a href="./?key=<?= $_GET['key'] ?>">REFRESH THE PAGE BEFORE PERFORMING ANY ACTION (TO CHECK YOUR
+                        SESSION)</a></h2>
 
                 <form method="post" action="./?key=<?= $_GET['key'] ?>">
                     <table border="1">
@@ -187,6 +187,11 @@ try {
                             </td>
                         </tr>
                         <tr>
+                            <th align="left">Banned?</th>
+                            <td><input name="isBanned" value="1" type="checkbox">
+                            </td>
+                        </tr>
+                        <tr>
                             <td colspan="2" align="center"><input name="submit" type="submit" value="Modify"><input
                                     name="submit" type="submit" value="Delete"></td>
                         </tr>
@@ -203,7 +208,8 @@ try {
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2" align="center"><input name="submit" type="submit" value="Adminify"><input name="submit" type="submit" value="Adminify_Delete"></td>
+                            <td colspan="2" align="center"><input name="submit" type="submit" value="Adminify"><input
+                                    name="submit" type="submit" value="Adminify_Delete"></td>
                         </tr>
                     </table>
                 </form>
@@ -290,6 +296,28 @@ try {
                     echo '</table>';
                 } else {
                     echo 'No admin users yet.<br />';
+                }
+
+                $banned_users = $db->q("SELECT * FROM `invite_key` WHERE `banned` = 1 ORDER BY `date_added` DESC LIMIT 0, 20;");
+
+                echo '<h1>Top 20 Banned Users (<a target="_new" href="./bans.php?key=' . $admin_pass . '">rest here</a>)</h1>';
+                if (!empty($banned_users)) {
+                    echo '<table border="1">';
+                    echo '<tr align="center">
+                    <th>Queue ID</th>
+                    <th>Steam ID</th>
+                    <th>Date Joined</th>
+                </tr>';
+                    foreach ($banned_users as $key => $value) {
+                        echo '<tr align="center">
+                    <td>' . $value['queue_id'] . '</td>
+                    <td><a href="http://steamcommunity.com/profiles/' . $value['steam_id'] . '" target="_new">' . $value['steam_id'] . '</a></td>
+                    <td>' . $value['date_invited'] . '</td>
+                </tr>';
+                    }
+                    echo '</table>';
+                } else {
+                    echo 'No banned users yet.<br />';
                 }
             } else {
                 echo 'Your steam_id is not in the admin group or your steam login session has expired';
