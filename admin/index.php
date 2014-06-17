@@ -169,10 +169,12 @@ try {
                 $site_stats = $site_stats[0];
 
 
+                echo '<h2>Queue Stats</h2>';
                 echo number_format($site_stats['total_users']) . ' total users in queue<br />';
                 echo number_format($site_stats['total_users_invited']) . ' users invited (no other flags: ' . number_format($site_stats['total_normal_users_invited']) . ')<br />';
                 echo number_format($site_stats['total_permament_users']) . ' users with the permament flag (invited: ' . number_format($site_stats['total_permament_users_invited']) . ')<br />';
                 echo number_format($site_stats['total_donated_users']) . ' users with the donator flag (invited: ' . number_format($site_stats['total_donated_users_invited']) . ')<br />';
+                echo '<a target="_new" href="../stats/">Joins over time plot</a><br />';
                 echo '<p>Set the number of invited users. Users already invited will lose their invite if you set it lower than
                 the current number invited (number above).</p>';
                 echo '<p>Steam IDs can be pasted into the "list of users" to mass edit user profiles. These steam_ids must be 64bit, and only one ID per line (no spaces before or after).</p>';

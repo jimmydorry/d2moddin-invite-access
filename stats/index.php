@@ -5,6 +5,10 @@ require_once('../connections/parameters.php');
 $start = time();
 include('./chart.php');
 
+if (!isset($_SESSION)) {
+    session_start();
+}
+
 try {
     $db = new dbWrapper($hostname, $username, $password, $database, $port, false);
     if ($db) {
