@@ -142,7 +142,7 @@ FROM `invite_key` ik WHERE ik.`steam_id` = " . $steamid64 . " LIMIT 0,1;";
                                 echo '<p>You have received an invite!</p>';
                                 echo '<p><a href="http://beta.d2modd.in/" target="_new"><span class="h5">Login to D2Moddin via this link</span></a></p>';
                             } else {
-                                echo '<h1>You are #' . number_format($d2moddin_user['true_queue_id']) . ' in the queue</h1><br />';
+                                echo '<h1>#' . number_format($d2moddin_user['true_queue_id']) . ' in the queue</h1><br />';
                                 echo '<h2>Invited: No</h2>';
                             }
                             echo '<p>Your original queue id was ' . number_format($d2moddin_user['queue_id']) . '</p>';
