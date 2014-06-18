@@ -49,8 +49,8 @@ $user_details = !empty($_SESSION['user_details'])
     <img src="./assets/images/pbc4xVZ.png" alt=""/>
 </div>
 <div id="contain">
-    <section id="home">
-        <div id="index" style="z-index: 2">
+    <section id="home" style="z-index: 10">
+        <div id="index">
             <div class="container">
                 <div class="row">
                     <div class="head col-xs-12 col-sm-12 col-md-12 col-lg-12">
