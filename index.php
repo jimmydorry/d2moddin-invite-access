@@ -126,7 +126,8 @@ FROM `invite_key` ik WHERE ik.`steam_id` = ' . $steamid64 . ' LIMIT 0,1;",
 
                                 $memcache->delete('d2moddin_user' . $steamid64);
                                 $d2moddin_user = simple_cached_query('d2moddin_user' . $steamid64,
-                                    "SELECT * FROM `invite_key` WHERE `steam_id` = " . $steamid64 . " LIMIT 0,1;",
+                                    "SELECT ik.`queue_id`, ik.`steam_id`, ik.`invited`, ik.`permament`, ik.`banned`, ik.`banned_reason`, ik.`donated`, ik.`donation`, ik.`donation_fee`, ik.`donation_email`, ik.`donation_txn_id`, ik.`donation_ipn_id`, ik.`date_invited`, (queue_id - (SELECT COUNT(*) FROM invite_key ik2 WHERE ik2.queue_id < ik.queue_id AND ik2.invited = 1)) as true_queue_id
+FROM `invite_key` ik WHERE ik.`steam_id` = ' . $steamid64 . ' LIMIT 0,1;",
                                     30);
                             }
                             $d2moddin_user = $d2moddin_user[0];
