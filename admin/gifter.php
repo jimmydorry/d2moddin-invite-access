@@ -7,14 +7,20 @@ if (!isset($_SESSION)) {
 }
 
 try {
-    $db = new dbWrapper($hostname, $username, $password, $database, $port, true);
+    $db = new dbWrapper($hostname, $username, $password, $database, $port, false);
     if ($db) {
         !empty($_GET["key"]) && is_numeric($_GET["key"]) ? $admin_pass = $_GET["key"] : $admin_pass = null;
 
         //CHECK ADMIN PASS
         if (!empty($admin_pass) && $admin_pass == $admin_pass_master) {
 
-            $gifter_users = $db->q("SELECT ik.`queue_id`, ik.`steam_id`, ik.`date_invited`, (SELECT COUNT(*) FROM `invite_codes` WHERE `sender` = ik.`steam_id`) as num_invites, (SELECT COUNT(*) FROM `invite_codes` WHERE `sender` = ik.`steam_id` AND `activated` = 1) as num_accepted_invites FROM `invite_key` ik WHERE `gifter` = 1 ORDER BY queue_id ASC;");
+            $gifter_users = $db->q("SELECT
+                ik.`queue_id`,
+                ik.`steam_id`,
+                ik.`date_invited`,
+                (SELECT COUNT(*) FROM `invite_codes` WHERE `sender` = ik.`steam_id`) as num_invites,
+                (SELECT COUNT(*) FROM `invite_codes` WHERE `sender` = ik.`steam_id` AND `activated` = 1) as num_accepted_invites
+                FROM `invite_key` ik WHERE `gifter` = 1 ORDER BY num_invites DESC;");
 
             echo '<h1>Users with Ability to make Invite Codes</h1>';
             if (!empty($gifter_users)) {
