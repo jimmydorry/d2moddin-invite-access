@@ -28,16 +28,12 @@ try {
                 echo '<tr align="center">
                     <th>Queue ID</th>
                     <th>Steam ID</th>
-                    <th>Num Invites</th>
-                    <th>Num Invites Accepted</th>
                     <th>Date Joined</th>
                 </tr>';
                 foreach ($gifter_users as $key => $value) {
                     echo '<tr align="center">
                     <td>' . $value['queue_id'] . '</td>
                     <td><a href="http://steamcommunity.com/profiles/' . $value['steam_id'] . '" target="_new">' . $value['steam_id'] . '</a></td>
-                    <td>' . $value['num_invites'] . '</td>
-                    <td>' . $value['num_accepted_invites'] . '</td>
                     <td>' . relative_time(['date_invited']) . '</td>
                 </tr>';
                 }
@@ -56,4 +52,3 @@ try {
 } catch (Exception $e) {
     echo $e->getMessage();
 }
-?>
