@@ -359,13 +359,11 @@ try {
                 if (!empty($gifter_users)) {
                     echo '<table border="1">';
                     echo '<tr align="center">
-                    <th>Queue ID</th>
                     <th>Steam ID</th>
                     <th>Date Joined</th>
                 </tr>';
                     foreach ($gifter_users as $key => $value) {
                         echo '<tr align="center">
-                    <td>' . $value['queue_id'] . '</td>
                     <td><a href="http://steamcommunity.com/profiles/' . $value['steam_id'] . '" target="_new">' . $value['steam_id'] . '</a></td>
                     <td>' . $value['date_invited'] . '</td>
                 </tr>';
