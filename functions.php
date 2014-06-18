@@ -7,9 +7,17 @@ if (!class_exists("dbWrapper")) {
         public $row_cnt;
         public $row_cnt_affected;
 
-        public function __construct($host, $username, $password, $database, $port = 3306, $debug)
+        public function __construct($host, $username, $password, $database, $port = 3306, $debug, $charset = '')
         {
             $this->_mysqli = new mysqli($host, $username, $password, $database, $port);
+
+            if(!empty($charset)){
+                $this->_mysqli->set_charset($charset); //"utf8" is pretty good || default seems to be "latin1"
+                //$test = $this->_mysqli->character_set_name();
+                //printf ("Current character set is %s\n", $test);
+            }
+
+
             $this->_debug = (bool)$debug;
             if (mysqli_connect_errno()) {
                 if ($this->_debug) {
