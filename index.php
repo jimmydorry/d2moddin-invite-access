@@ -50,14 +50,12 @@ $user_details = !empty($_SESSION['user_details'])
 </div>
 <div id="contain">
     <section id="home">
-        <div id="index" style="z-index: 10 !important">
+        <div id="index">
             <div class="container">
                 <div class="row">
                     <div class="head col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <h1 class="col-md-offset-5 animated delay020 fadeInBottom">CUSTOM GAMES</h1>
 
-                        <h2 class="col-md-offset-5 animated delay023 fadeInBottom">Sign up to get your slot in the
-                            beta!</h2>
                         <?php
                         try {
                             if (!empty($steamid64)) {
@@ -68,6 +66,10 @@ $user_details = !empty($_SESSION['user_details'])
 
                                 if (!empty($d2moddin_admins)) {
                                     echo '<h2 class="col-md-offset-5 animated delay023 fadeInBottom"><a class="active" target="_new" href="./admin/?key=' . $admin_pass_master . '">ADMIN PANEL⇚</a></h2>';
+                                }
+                                else{
+                                    echo '<h2 class="col-md-offset-5 animated delay023 fadeInBottom">Sign up to get your slot in the
+                            beta!</h2>';
                                 }
 
                                 $d2moddin_gifters = simple_cached_query('d2moddin_gifters' . $steamid64,
@@ -107,20 +109,20 @@ $user_details = !empty($_SESSION['user_details'])
                         $d2moddin_stats = $d2moddin_stats[0];
 
                         if (isset($_GET['thanks'])) {
-                            echo '<div class="text-center" style="z-index: 15 !important">';
+                            echo '<div class="text-center">';
                             echo '<h2>Thanks for donating!</h2>';
                             echo '<p>Your donation may take several minutes to be received. When it is received, your queue status will be updated.</p>';
                             echo '<p><a href="http://steamcommunity.com/groups/D2Moddin/discussions/4/">Errors and bugs can be reported in the donation forum</a></p>';
                             echo '<p><a href="http://d2modd.in">Reload page</a></p>';
                             echo '</div>';
                         } else if (empty($steamid64)) {
-                            echo '<div class="text-center" style="z-index: 15 !important">';
+                            echo '<div class="text-center">';
                             echo '<p>To sign-up for your invite to D2Modd.in, login via steam.</p>';
                             echo '<p>After logging in, you will be entered into the queue for an invite.</p>';
                             echo '<p><a href="./auth/?login"><img src="./assets/images/steam_small.png" alt="Sign in with Steam"/></a></p>';
                             echo '</div>';
                         } else {
-                            echo '<div style="position:relative;z-index: 15 !important">';
+                            echo '<div>';
                             echo '<span class="h4">Logged in as:</span> ' . $user_details->personaname . '<br />';
                             //echo '<span class="h3">User ID:</span> ' . $steamid64 . '<br />';
                             echo '<p><a href="./auth/?logout">Click here to Logout</a></p><br />';
@@ -142,7 +144,7 @@ FROM `invite_key` ik WHERE ik.`steam_id` = " . $steamid64 . " LIMIT 0,1;";
                             }
                             $d2moddin_user = $d2moddin_user[0];
 
-                            echo '<div class="text-center" style="z-index: 15 !important">';
+                            echo '<div class="text-center">';
                             echo '<a href="http://steamcommunity.com/profiles/' . $steamid64 . '" target="_new"><img src="' . $user_details->avatarmedium . '" /></a><br /><br />';
 
                             if ($d2moddin_user['banned']) {
