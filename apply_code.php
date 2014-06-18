@@ -142,7 +142,7 @@ $user_details = !empty($_SESSION['user_details'])
 
                             <br/>
 
-                            <form method="post" action="" style="width:321px;margin: 0 auto;">
+                            <form method="post" action="" style="width:324px;margin: 0 auto;">
                                 <table border="1">
                                     <tr>
                                         <th align="left">Invite Code</th>
