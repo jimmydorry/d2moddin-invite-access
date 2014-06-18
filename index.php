@@ -52,7 +52,7 @@ $user_details = !empty($_SESSION['user_details'])
     <section id="home">
         <div id="index">
             <div class="container">
-                <div class="row">
+                <div class="row" style="z-index: 2">
                     <div class="head col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <h1 class="col-md-offset-5 animated delay020 fadeInBottom">CUSTOM GAMES</h1>
 
