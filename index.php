@@ -120,7 +120,7 @@ $user_details = !empty($_SESSION['user_details'])
                             echo '<p><a href="./auth/?login"><img src="./assets/images/steam_small.png" alt="Sign in with Steam"/></a></p>';
                             echo '</div>';
                         } else {
-                            echo '<div style="z-index: 15 !important">';
+                            echo '<div style="position:relative;z-index: 15 !important">';
                             echo '<span class="h4">Logged in as:</span> ' . $user_details->personaname . '<br />';
                             //echo '<span class="h3">User ID:</span> ' . $steamid64 . '<br />';
                             echo '<p><a href="./auth/?logout">Click here to Logout</a></p><br />';
