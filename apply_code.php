@@ -142,7 +142,7 @@ $user_details = !empty($_SESSION['user_details'])
 
                             <br/>
 
-                            <form method="post" action="">
+                            <form method="post" action="" style="text-align:center">
                                 <table border="1">
                                     <tr>
                                         <th align="left">Invite Code</th>
@@ -165,6 +165,7 @@ $user_details = !empty($_SESSION['user_details'])
                         echo $e->getMessage();
                     }
                     ?>
+                    <p><a href="./">Return to homepage</a></p>
                 </div>
             </div>
         </div>
