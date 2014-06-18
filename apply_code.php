@@ -148,6 +148,7 @@ $user_details = !empty($_SESSION['user_details'])
                                         <th align="left">Invite Code</th>
                                         <td><input type="text"
                                                    name="codeAttempt"
+                                                   maxlength="40"
                                                    value="<?= !empty($_POST['codeAttempt']) ? $db->escape($_POST['codeAttempt']) : 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX' ?>"/>
 
                                             <!--<textarea name="codeAttempt" rows="1" cols="40" type="text"></textarea>-->
