@@ -92,7 +92,7 @@ try {
                         echo '<strong>Failed to generate codes!</strong><br />';
                     }
                 } else {
-                    echo 'You have too many unactivated keys!';
+                    echo '<strong>You have too many unactivated keys!</strong><br />';
                 }
             }
             ?>
