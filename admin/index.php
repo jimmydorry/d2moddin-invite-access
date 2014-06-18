@@ -352,6 +352,28 @@ try {
                 } else {
                     echo 'No banned users yet.<br />';
                 }
+
+                $gifter_users = $db->q("SELECT * FROM `invite_key` WHERE `gifter` = 1 ORDER BY `date_invited` DESC LIMIT 0, 20;");
+
+                echo '<h1>Top 20 Users That Can Make Invite Codes (<a target="_new" href="./gifter.php?key=' . $admin_pass . '">rest here</a>)</h1>';
+                if (!empty($gifter_users)) {
+                    echo '<table border="1">';
+                    echo '<tr align="center">
+                    <th>Queue ID</th>
+                    <th>Steam ID</th>
+                    <th>Date Joined</th>
+                </tr>';
+                    foreach ($gifter_users as $key => $value) {
+                        echo '<tr align="center">
+                    <td>' . $value['queue_id'] . '</td>
+                    <td><a href="http://steamcommunity.com/profiles/' . $value['steam_id'] . '" target="_new">' . $value['steam_id'] . '</a></td>
+                    <td>' . $value['date_invited'] . '</td>
+                </tr>';
+                    }
+                    echo '</table>';
+                } else {
+                    echo 'No users able to create invites yet.<br />';
+                }
             } else {
                 echo 'Your steam_id is not in the admin group or your steam login session has expired';
             }
