@@ -17,7 +17,7 @@ try {
 
         if (!empty($user_id) && !empty($api_key)) {
             if ($api_key == $getdotastats_api_key_master) {
-                $sql = "SELECT ik.`queue_id`, ik.`steam_id`, ik.`invited`, ik.`permament`, ik.`banned`, ik.`banned_reason`, ik.`donated`, ik.`donation`, ik.`donation_fee`, ik.`donation_email`, ik.`donation_txn_id`, ik.`donation_ipn_id`, ik.`date_invited`, (SELECT COUNT(*) FROM invite_key ik2 WHERE ik2.queue_id < ik.queue_id AND ik2.invited = 0) as true_queue_id
+                $sql = "SELECT ik.`queue_id`, ik.`steam_id`, ik.`invited`, ik.`permament`, ik.`banned`, ik.`banned_reason`, ik.`donated`, ik.`donation`, ik.`donation_fee`, ik.`donation_email`, ik.`donation_txn_id`, ik.`donation_ipn_id`, ik.`date_invited`, ((SELECT COUNT(*) FROM invite_key ik2 WHERE ik2.queue_id < ik.queue_id AND ik2.invited = 0)+1) as true_queue_id
 FROM `invite_key` ik WHERE ik.`steam_id` = " . $user_id . " LIMIT 0,1;";
                 $d2moddin_user = simple_cached_query('d2moddin_user' . $user_id,
                     $sql,
