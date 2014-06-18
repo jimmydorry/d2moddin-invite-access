@@ -107,6 +107,8 @@ $user_details = !empty($_SESSION['user_details'])
                             if (isset($_POST['codeAttempt']) && !empty($_POST['codeAttempt'])) {
                                 $codeAttempt = $db->escape($_POST['codeAttempt']);
 
+                                echo $codeAttempt.'<br />';
+
                                 $isCodeActive = $db->q("SELECT * FROM `invite_codes` WHERE `token` = ? AND `activated` = 0 LIMIT 0,1;",
                                     'i',
                                     $codeAttempt);
