@@ -120,9 +120,11 @@ $user_details = !empty($_SESSION['user_details'])
                             echo '<p><a href="./auth/?login"><img src="./assets/images/steam_small.png" alt="Sign in with Steam"/></a></p>';
                             echo '</div>';
                         } else {
+                            echo '<div style="z-index: 15 !important">';
                             echo '<span class="h4">Logged in as:</span> ' . $user_details->personaname . '<br />';
                             //echo '<span class="h3">User ID:</span> ' . $steamid64 . '<br />';
-                            echo '<p style="z-index: 15 !important"><a href="./auth/?logout">Click here to Logout</a></p><br />';
+                            echo '<p><a href="./auth/?logout">Click here to Logout</a></p><br />';
+                            echo '</div>';
 
                             $sql = "SELECT ik.`queue_id`, ik.`steam_id`, ik.`invited`, ik.`permament`, ik.`banned`, ik.`banned_reason`, ik.`donated`, ik.`donation`, ik.`donation_fee`, ik.`donation_email`, ik.`donation_txn_id`, ik.`donation_ipn_id`, ik.`date_invited`, ((SELECT COUNT(*) FROM invite_key ik2 WHERE ik2.queue_id < ik.queue_id AND ik2.invited = 0)+1) as true_queue_id
 FROM `invite_key` ik WHERE ik.`steam_id` = " . $steamid64 . " LIMIT 0,1;";
