@@ -111,7 +111,9 @@ $user_details = !empty($_SESSION['user_details'])
                                     'i',
                                     $codeAttempt);
 
-                                if (!empty($isCodeActive) && $_POST['codeAttempt'] != 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX') {
+                                var_dump($isCodeActive);
+
+                                if (!empty($isCodeActive)) {
                                     $updateSQL2 = $db->q("UPDATE `invite_key` SET `invited` = 1, `permament` = 1 WHERE `steam_id` = ? ",
                                         'i',
                                         $steamid64);
