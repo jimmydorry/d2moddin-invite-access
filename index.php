@@ -114,7 +114,8 @@ $user_details = !empty($_SESSION['user_details'])
                             echo '<p><a href="./auth/?logout">Click here to Logout</a></p><br />';
 
                             $d2moddin_user = simple_cached_query('d2moddin_user' . $steamid64,
-                                "SELECT * FROM `invite_key` WHERE `steam_id` = " . $steamid64 . " LIMIT 0,1;",
+                                "SELECT ik.`queue_id`, ik.`steam_id`, ik.`invited`, ik.`permament`, ik.`banned`, ik.`banned_reason`, ik.`donated`, ik.`donation`, ik.`donation_fee`, ik.`donation_email`, ik.`donation_txn_id`, ik.`donation_ipn_id`, ik.`date_invited`, (queue_id - (SELECT COUNT(*) FROM invite_key ik2 WHERE ik2.queue_id < ik.queue_id AND ik2.invited = 1)) as true_queue_id
+FROM `invite_key` ik WHERE ik.`steam_id` = ' . $steamid64 . ' LIMIT 0,1;",
                                 30);
                             if (empty($d2moddin_user)) {
                                 $d2moddin_user = $db->q(
@@ -143,7 +144,7 @@ $user_details = !empty($_SESSION['user_details'])
                                 echo '<p>You have received an invite!</p>';
                                 echo '<p><a href="http://beta.d2modd.in/" target="_new"><span class="h5">Login to D2Moddin via this link</span></a></p>';
                             } else {
-                                echo '<h1>You are #' . number_format(max(1, $d2moddin_user['queue_id'] - $d2moddin_stats['total_users_invited'])) . ' in the queue</h1><br />';
+                                echo '<h1>You are #' . number_format($d2moddin_user['true_queue_id']) . ' in the queue</h1><br />';
                                 echo '<h2>Invited: No</h2>';
                             }
                             echo '<p>Your original queue id was ' . number_format($d2moddin_user['queue_id']) . '</p>';

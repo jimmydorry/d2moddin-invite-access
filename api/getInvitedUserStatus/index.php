@@ -18,7 +18,8 @@ try {
         if (!empty($user_id) && !empty($api_key)) {
             if ($api_key == $getdotastats_api_key_master) {
                 $d2moddin_user = simple_cached_query('d2moddin_user' . $user_id,
-                    "SELECT * FROM `invite_key` WHERE `steam_id` = " . $user_id . " LIMIT 0,1;",
+                    "SELECT ik.`queue_id`, ik.`steam_id`, ik.`invited`, ik.`permament`, ik.`banned`, ik.`banned_reason`, ik.`donated`, ik.`donation`, ik.`donation_fee`, ik.`donation_email`, ik.`donation_txn_id`, ik.`donation_ipn_id`, ik.`date_invited`, (queue_id - (SELECT COUNT(*) FROM invite_key ik2 WHERE ik2.queue_id < ik.queue_id AND ik2.invited = 1)) as true_queue_id
+FROM `invite_key` ik WHERE ik.`steam_id` = ' . $user_id . ' LIMIT 0,1;",
                     10);
                 $d2moddin_user =  $d2moddin_user[0];
 
@@ -30,6 +31,12 @@ try {
                         $result['error'] = 'User not invited';
                     }
 
+                    !empty($d2moddin_user['banned'])
+                        ? $result['banned'] = $d2moddin_user['banned']
+                        : NULL;
+                    !empty($d2moddin_user['banned_reason'])
+                        ? $result['banned_reason'] = $d2moddin_user['banned_reason']
+                        : NULL;
                     !empty($d2moddin_user['invited'])
                         ? $result['invited'] = $d2moddin_user['invited']
                         : NULL;
@@ -41,6 +48,9 @@ try {
                         : NULL;
                     !empty($d2moddin_user['queue_id'])
                         ? $result['queue_id'] = $d2moddin_user['queue_id']
+                        : NULL;
+                    !empty($d2moddin_user['true_queue_id'])
+                        ? $result['true_queue_id'] = $d2moddin_user['true_queue_id']
                         : NULL;
                     !empty($d2moddin_user['date_invited'])
                         ? $result['date_invited'] = $d2moddin_user['date_invited']
