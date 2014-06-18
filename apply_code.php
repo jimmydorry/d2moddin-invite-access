@@ -117,7 +117,7 @@ $user_details = !empty($_SESSION['user_details'])
                                         $steamid64);
 
                                     if ($updateSQL2) {
-                                        echo '<strong>Queue position updated!</strong><br />';
+                                        echo '<strong>Queue position updated!</strong> You are now permamently invited.<br />';
 
                                         $persona_name = !empty($user_details->personaname)
                                             ? $user_details->personaname
@@ -127,12 +127,12 @@ $user_details = !empty($_SESSION['user_details'])
                                             $steamid64, $persona_name, $codeAttempt);
 
                                         if ($updateSQL1) {
-                                            echo '<strong>Code redeemed!</strong><br />';
+                                            echo '<strong>Code redeemed!</strong> No one else can use it again.<br />';
                                         } else {
                                             echo '<strong>Failed to redeem code!</strong><br />';
                                         }
                                     } else {
-                                        echo '<strong>Queue position not updated!</strong><br />';
+                                        echo '<strong>Queue position not updated!</strong> You must have already been permamently invited.<br />';
                                     }
                                 } else {
                                     echo '<strong>Invalid code!</strong> This code is either invalid, or already used.<br />';
