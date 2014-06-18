@@ -62,22 +62,24 @@ $user_details = !empty($_SESSION['user_details'])
                         <?php
 
                         try {
-                            $d2moddin_admins = simple_cached_query('d2moddin_admins' . $steamid64,
-                                "SELECT * FROM `admins` WHERE `steam_id` = $steamid64 LIMIT 0,1;",
-                                30);
-                            $d2moddin_admins = $d2moddin_admins[0];
+                            if (!empty($steamid64)) {
+                                $d2moddin_admins = simple_cached_query('d2moddin_admins' . $steamid64,
+                                    "SELECT * FROM `admins` WHERE `steam_id` = $steamid64 LIMIT 0,1;",
+                                    30);
+                                $d2moddin_admins = $d2moddin_admins[0];
 
-                            if (!empty($d2moddin_admins)) {
-                                echo '<h2 class="col-md-offset-5 animated delay023 fadeInBottom"><a class="active" target="_new" href="./admin/?key=' . $admin_pass_master . '">ADMIN PANEL</a></h2>';
-                            }
+                                if (!empty($d2moddin_admins)) {
+                                    echo '<h2 class="col-md-offset-5 animated delay023 fadeInBottom"><a class="active" target="_new" href="./admin/?key=' . $admin_pass_master . '">ADMIN PANEL</a></h2>';
+                                }
 
-                            $d2moddin_gifters = simple_cached_query('d2moddin_gifters' . $steamid64,
-                                "SELECT * FROM `invite_key` WHERE `steam_id` = $steamid64 AND `gifter` = 1 LIMIT 0,1;",
-                                30);
-                            $d2moddin_gifters = $d2moddin_gifters[0];
+                                $d2moddin_gifters = simple_cached_query('d2moddin_gifters' . $steamid64,
+                                    "SELECT * FROM `invite_key` WHERE `steam_id` = $steamid64 AND `gifter` = 1 LIMIT 0,1;",
+                                    30);
+                                $d2moddin_gifters = $d2moddin_gifters[0];
 
-                            if (!empty($d2moddin_gifters)) {
-                                echo '<h2 class="col-md-offset-5 animated delay023 fadeInBottom"><a class="active" target="_new" href="./create_guid.php">Manage Invite Codes</a></h2>';
+                                if (!empty($d2moddin_gifters)) {
+                                    echo '<h2 class="col-md-offset-5 animated delay023 fadeInBottom"><a class="active" target="_new" href="./create_guid.php">Manage Invite Codes</a></h2>';
+                                }
                             }
                         } catch (Exception $e) {
                             echo $e->getMessage();
