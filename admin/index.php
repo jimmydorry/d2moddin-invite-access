@@ -355,7 +355,7 @@ try {
 
                 $gifter_users = $db->q("SELECT * FROM `invite_key` WHERE `gifter` = 1 ORDER BY `date_invited` DESC LIMIT 0, 20;");
 
-                echo '<h1>Top 20 Users That Can Make Invite Codes (<a target="_new" href="./gifter.php?key=' . $admin_pass . '">rest here</a>)</h1>';
+                echo '<h1>Top 20 Users That Can Make Invite Codes (<a target="_new" href="./gifters.php?key=' . $admin_pass . '">rest here</a>)</h1>';
                 if (!empty($gifter_users)) {
                     echo '<table border="1">';
                     echo '<tr align="center">

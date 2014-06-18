@@ -14,15 +14,9 @@ try {
         //CHECK ADMIN PASS
         if (!empty($admin_pass) && $admin_pass == $admin_pass_master) {
 
-            $gifter_users = $db->q("SELECT
-                ik.`queue_id`,
-                ik.`steam_id`,
-                ik.`date_invited`,
-                (SELECT COUNT(*) FROM `invite_codes` WHERE `sender` = ik.`steam_id`) as num_invites,
-                (SELECT COUNT(*) FROM `invite_codes` WHERE `sender` = ik.`steam_id` AND `activated` = 1) as num_accepted_invites
-                FROM `invite_key` ik WHERE `gifter` = 1 ORDER BY num_invites DESC;");
+            $gifter_users = $db->q("SELECT queue_id, steam_id, date_invited FROM `invite_key` WHERE `gifter` = 1;");
 
-            echo '<h1>Users with Ability to make Invite Codes</h1>';
+            echo '<h1>Users that can create invite codes</h1>';
             if (!empty($gifter_users)) {
                 echo '<table border="1">';
                 echo '<tr align="center">
@@ -34,12 +28,12 @@ try {
                     echo '<tr align="center">
                     <td>' . $value['queue_id'] . '</td>
                     <td><a href="http://steamcommunity.com/profiles/' . $value['steam_id'] . '" target="_new">' . $value['steam_id'] . '</a></td>
-                    <td>' . relative_time(['date_invited']) . '</td>
+                    <td>' . $value['date_invited'] . '</td>
                 </tr>';
                 }
                 echo '</table>';
             } else {
-                echo 'No users able to make invite codes yet.<br />';
+                echo 'No users can create invite codes yet.<br />';
             }
 
 
@@ -52,3 +46,4 @@ try {
 } catch (Exception $e) {
     echo $e->getMessage();
 }
+?>
