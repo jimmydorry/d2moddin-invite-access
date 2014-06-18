@@ -11,12 +11,16 @@ $db = new dbWrapper($hostname, $username, $password, $database, $port, false);
 $memcache = new Memcache;
 $memcache->connect("localhost", 11211); # You might need to set "localhost" to "127.0.0.1"
 
+
 $steamid64 = '';
 if (!empty($_SESSION['user_id']) && is_numeric($_SESSION['user_id'])) {
     $steamid64 = $_SESSION['user_id'];
 } else {
-    header("Location: ./");
+    //header("Location: ./");
 }
+
+
+$steamid64 = 76561198084584282;//////////////////////////////////////////////////////////////////////////////////
 
 $user_details = !empty($_SESSION['user_details'])
     ? $_SESSION['user_details']
@@ -108,13 +112,13 @@ $user_details = !empty($_SESSION['user_details'])
                                 $codeAttempt = $db->escape($_POST['codeAttempt']);
 
                                 $isCodeActive = $db->q("SELECT * FROM `invite_codes` WHERE `token` = ? AND `activated` = 0 LIMIT 0,1;",
-                                    'i',
+                                    's',
                                     $codeAttempt);
 
                                 if (!empty($isCodeActive)) {
-                                    /*$updateSQL2 = $db->q("UPDATE `invite_key` SET `invited` = 1, `permament` = 1 WHERE `steam_id` = ? ",
+                                    $updateSQL2 = $db->q("UPDATE `invite_key` SET `invited` = 1, `permament` = 1 WHERE `steam_id` = ? ",
                                         'i',
-                                        $steamid64);*/
+                                        $steamid64);
 
                                     if ($updateSQL2) {
                                         echo '<strong>Queue position updated!</strong><br />';
@@ -122,9 +126,9 @@ $user_details = !empty($_SESSION['user_details'])
                                         $persona_name = !empty($user_details->personaname)
                                             ? $user_details->personaname
                                             : NULL;
-                                        /*$updateSQL1 = $db->q("UPDATE `invite_codes` SET `activated` = 1, `receiver` = ?, `receiver_nick` = ?, `date_activated` = NOW() WHERE `token` = ? ",
+                                        $updateSQL1 = $db->q("UPDATE `invite_codes` SET `activated` = 1, `receiver` = ?, `receiver_nick` = ?, `date_activated` = NOW() WHERE `token` = ? ",
                                             'iss',
-                                            $steamid64, $persona_name, $codeAttempt);*/
+                                            $steamid64, $persona_name, $codeAttempt);
 
                                         if ($updateSQL1) {
                                             echo '<strong>Code redeemed!</strong><br />';
@@ -142,12 +146,12 @@ $user_details = !empty($_SESSION['user_details'])
 
                             <br/>
 
-                            <!--<form method="post" action="" style="width:337px;margin: 0 auto;">
+                            <form method="post" action="" style="width:337px;margin: 0 auto;">
                                 <table border="1">
                                     <tr>
                                         <th align="left">Invite Code</th>
                                         <td><textarea name="codeAttempt" rows="1" cols="40"
-                                                      type="text"><?= //!empty($_POST['codeAttempt']) ? $db->escape($_POST['codeAttempt']) : 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX' ?></textarea>
+                                                      type="text"><?= !empty($_POST['codeAttempt']) ? $db->escape($_POST['codeAttempt']) : 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX' ?></textarea>
                                         </td>
                                     </tr>
                                     <tr>
@@ -155,7 +159,7 @@ $user_details = !empty($_SESSION['user_details'])
                                                                               value="Redeem"></td>
                                     </tr>
                                 </table>
-                            </form>-->
+                            </form>
 
                         <?php
                         } else {
