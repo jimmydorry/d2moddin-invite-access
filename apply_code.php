@@ -107,18 +107,14 @@ $user_details = !empty($_SESSION['user_details'])
                             if (isset($_POST['codeAttempt']) && !empty($_POST['codeAttempt'])) {
                                 $codeAttempt = $db->escape($_POST['codeAttempt']);
 
-                                echo $codeAttempt.'<br />';
-
                                 $isCodeActive = $db->q("SELECT * FROM `invite_codes` WHERE `token` = ? AND `activated` = 0 LIMIT 0,1;",
                                     'i',
                                     $codeAttempt);
 
-                                var_dump($isCodeActive);
-
                                 if (!empty($isCodeActive)) {
-                                    $updateSQL2 = $db->q("UPDATE `invite_key` SET `invited` = 1, `permament` = 1 WHERE `steam_id` = ? ",
+                                    /*$updateSQL2 = $db->q("UPDATE `invite_key` SET `invited` = 1, `permament` = 1 WHERE `steam_id` = ? ",
                                         'i',
-                                        $steamid64);
+                                        $steamid64);*/
 
                                     if ($updateSQL2) {
                                         echo '<strong>Queue position updated!</strong><br />';
@@ -126,9 +122,9 @@ $user_details = !empty($_SESSION['user_details'])
                                         $persona_name = !empty($user_details->personaname)
                                             ? $user_details->personaname
                                             : NULL;
-                                        $updateSQL1 = $db->q("UPDATE `invite_codes` SET `activated` = 1, `receiver` = ?, `receiver_nick` = ?, `date_activated` = NOW() WHERE `token` = ? ",
+                                        /*$updateSQL1 = $db->q("UPDATE `invite_codes` SET `activated` = 1, `receiver` = ?, `receiver_nick` = ?, `date_activated` = NOW() WHERE `token` = ? ",
                                             'iss',
-                                            $steamid64, $persona_name, $codeAttempt);
+                                            $steamid64, $persona_name, $codeAttempt);*/
 
                                         if ($updateSQL1) {
                                             echo '<strong>Code redeemed!</strong><br />';
