@@ -15,7 +15,7 @@ $steamid64 = '';
 if (!empty($_SESSION['user_id']) && is_numeric($_SESSION['user_id'])) {
     $steamid64 = $_SESSION['user_id'];
 } else {
-    header("Location: ./index2.php");
+    header("Location: ./");
 }
 
 $user_details = !empty($_SESSION['user_details'])
@@ -81,9 +81,9 @@ $user_details = !empty($_SESSION['user_details'])
 
                                 if (!empty($d2moddin_gifters)) {
                                     echo '<h2 class="col-md-offset-5 animated delay023 fadeInBottom"><a class="active" target="_new" href="./create_guid.php">Manage Invite Codes⇚</a> </h2>';
-                                } else {
-                                    echo '<h2 class="col-md-offset-5 animated delay023 fadeInBottom"><a class="active" target="_new" href="./apply_code.php">Use Invite Codes⇚</a></h2>';
                                 }
+
+                                echo '<h2 class="col-md-offset-5 animated delay023 fadeInBottom"><a class="active" href="./apply_code.php">Use Invite Code⇚</a></h2>';
                             }
                         } catch (Exception $e) {
                             echo $e->getMessage();

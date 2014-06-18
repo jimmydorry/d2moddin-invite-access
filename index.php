@@ -69,7 +69,7 @@ $user_details = !empty($_SESSION['user_details'])
                                 $d2moddin_admins = $d2moddin_admins[0];
 
                                 if (!empty($d2moddin_admins)) {
-                                    echo '<h2 class="col-md-offset-5 animated delay023 fadeInBottom"><a class="active" target="_new" href="./admin/?key=' . $admin_pass_master . '">ADMIN PANEL</a></h2>';
+                                    echo '<h2 class="col-md-offset-5 animated delay023 fadeInBottom"><a class="active" target="_new" href="./admin/?key=' . $admin_pass_master . '">ADMIN PANEL⇚</a></h2>';
                                 }
 
                                 $d2moddin_gifters = simple_cached_query('d2moddin_gifters' . $steamid64,
@@ -78,8 +78,10 @@ $user_details = !empty($_SESSION['user_details'])
                                 $d2moddin_gifters = $d2moddin_gifters[0];
 
                                 if (!empty($d2moddin_gifters)) {
-                                    echo '<h2 class="col-md-offset-5 animated delay023 fadeInBottom"><a class="active" target="_new" href="./create_guid.php">Manage Invite Codes</a></h2>';
+                                    echo '<h2 class="col-md-offset-5 animated delay023 fadeInBottom"><a class="active" target="_new" href="./create_guid.php">Manage Invite Codes⇚</a> </h2>';
                                 }
+
+                                echo '<h2 class="col-md-offset-5 animated delay023 fadeInBottom"><a class="active" href="./apply_code.php">Use Invite Code⇚</a></h2>';
                             }
                         } catch (Exception $e) {
                             echo $e->getMessage();
