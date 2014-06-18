@@ -142,12 +142,12 @@ $user_details = !empty($_SESSION['user_details'])
 
                             <br/>
 
-                            <form method="post" action="" style="width:337px;margin: 0 auto;">
+                            <!--<form method="post" action="" style="width:337px;margin: 0 auto;">
                                 <table border="1">
                                     <tr>
                                         <th align="left">Invite Code</th>
                                         <td><textarea name="codeAttempt" rows="1" cols="40"
-                                                      type="text"><?= !empty($_POST['codeAttempt']) ? $db->escape($_POST['codeAttempt']) : 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX' ?></textarea>
+                                                      type="text"><?= //!empty($_POST['codeAttempt']) ? $db->escape($_POST['codeAttempt']) : 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX' ?></textarea>
                                         </td>
                                     </tr>
                                     <tr>
@@ -155,7 +155,7 @@ $user_details = !empty($_SESSION['user_details'])
                                                                               value="Redeem"></td>
                                     </tr>
                                 </table>
-                            </form>
+                            </form>-->
 
                         <?php
                         } else {
