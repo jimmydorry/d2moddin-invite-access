@@ -16,11 +16,8 @@ $steamid64 = '';
 if (!empty($_SESSION['user_id']) && is_numeric($_SESSION['user_id'])) {
     $steamid64 = $_SESSION['user_id'];
 } else {
-    //header("Location: ./");
+    header("Location: ./");
 }
-
-
-$steamid64 = 76561198084584282;//////////////////////////////////////////////////////////////////////////////////
 
 $user_details = !empty($_SESSION['user_details'])
     ? $_SESSION['user_details']
