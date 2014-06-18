@@ -113,10 +113,10 @@ $user_details = !empty($_SESSION['user_details'])
                             //echo '<span class="h3">User ID:</span> ' . $steamid64 . '<br />';
                             echo '<p><a href="./auth/?logout">Click here to Logout</a></p><br />';
 
-                            $d2moddin_user = simple_cached_query('d2moddin_user' . $steamid64,
-                                "SELECT ik.`queue_id`, ik.`steam_id`, ik.`invited`, ik.`permament`, ik.`banned`, ik.`banned_reason`, ik.`donated`, ik.`donation`, ik.`donation_fee`, ik.`donation_email`, ik.`donation_txn_id`, ik.`donation_ipn_id`, ik.`date_invited`, (queue_id - (SELECT COUNT(*) FROM invite_key ik2 WHERE ik2.queue_id < ik.queue_id AND ik2.invited = 1)) as true_queue_id
-FROM `invite_key` ik WHERE ik.`steam_id` = ' . $steamid64 . ' LIMIT 0,1;",
-                                30);
+                            $sql = "SELECT ik.`queue_id`, ik.`steam_id`, ik.`invited`, ik.`permament`, ik.`banned`, ik.`banned_reason`, ik.`donated`, ik.`donation`, ik.`donation_fee`, ik.`donation_email`, ik.`donation_txn_id`, ik.`donation_ipn_id`, ik.`date_invited`, ((SELECT COUNT(*) FROM invite_key ik2 WHERE ik2.queue_id < ik.queue_id AND ik2.invited = 0)+1) as true_queue_id
+FROM `invite_key` ik WHERE ik.`steam_id` = " . $steamid64 . " LIMIT 0,1;";
+                            $d2moddin_user = simple_cached_query('d2moddin_user' . $steamid64, $sql, 30);
+
                             if (empty($d2moddin_user)) {
                                 $d2moddin_user = $db->q(
                                     'INSERT INTO `invite_key` (`steam_id`) VALUES (?);',
@@ -125,10 +125,7 @@ FROM `invite_key` ik WHERE ik.`steam_id` = ' . $steamid64 . ' LIMIT 0,1;",
                                 );
 
                                 $memcache->delete('d2moddin_user' . $steamid64);
-                                $d2moddin_user = simple_cached_query('d2moddin_user' . $steamid64,
-                                    "SELECT ik.`queue_id`, ik.`steam_id`, ik.`invited`, ik.`permament`, ik.`banned`, ik.`banned_reason`, ik.`donated`, ik.`donation`, ik.`donation_fee`, ik.`donation_email`, ik.`donation_txn_id`, ik.`donation_ipn_id`, ik.`date_invited`, (queue_id - (SELECT COUNT(*) FROM invite_key ik2 WHERE ik2.queue_id < ik.queue_id AND ik2.invited = 1)) as true_queue_id
-FROM `invite_key` ik WHERE ik.`steam_id` = ' . $steamid64 . ' LIMIT 0,1;",
-                                    30);
+                                $d2moddin_user = simple_cached_query('d2moddin_user' . $steamid64, $sql, 30);
                             }
                             $d2moddin_user = $d2moddin_user[0];
 
