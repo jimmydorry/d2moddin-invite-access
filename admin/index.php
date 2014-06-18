@@ -97,8 +97,6 @@ try {
                             $bannedInvite = 1;
                             $sql_action = 'b';
                         } else if ($_POST['submit'] == 'Un-Ban') {
-                            $invitedInvite = 0;
-                            $permamentInvite = 0;
                             $bannedInvite = 0;
                             $bannedReason = NULL;
                             $sql_action = 'b';
