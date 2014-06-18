@@ -69,8 +69,7 @@ $user_details = !empty($_SESSION['user_details'])
 
                                 if (!empty($d2moddin_admins)) {
                                     echo '<h2 class="col-md-offset-5 animated delay023 fadeInBottom"><a class="active" target="_new" href="./admin/?key=' . $admin_pass_master . '">ADMIN PANEL⇚</a></h2>';
-                                }
-                                else{
+                                } else {
                                     echo '<h2 class="col-md-offset-5 animated delay023 fadeInBottom">Sign up to get your slot in the
                             beta!</h2>';
                                 }
@@ -147,8 +146,11 @@ $user_details = !empty($_SESSION['user_details'])
                                 <table border="1">
                                     <tr>
                                         <th align="left">Invite Code</th>
-                                        <td><textarea name="codeAttempt" rows="1" cols="40"
-                                                      type="text"><?= !empty($_POST['codeAttempt']) ? $db->escape($_POST['codeAttempt']) : 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX' ?></textarea>
+                                        <td><input type="text"
+                                                   name="codeAttempt"
+                                                   value="<?= !empty($_POST['codeAttempt']) ? $db->escape($_POST['codeAttempt']) : 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX' ?>"/>
+
+                                            <!--<textarea name="codeAttempt" rows="1" cols="40" type="text"></textarea>-->
                                         </td>
                                     </tr>
                                     <tr>
