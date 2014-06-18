@@ -59,11 +59,7 @@ $user_details = !empty($_SESSION['user_details'])
                     <div class="head col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <h1 class="col-md-offset-5 animated delay020 fadeInBottom">CUSTOM GAMES</h1>
 
-                        <h2 class="col-md-offset-5 animated delay023 fadeInBottom">Sign up to get your slot in the
-                            beta!</h2>
-
                         <?php
-
                         try {
                             if (!empty($steamid64)) {
                                 $d2moddin_admins = simple_cached_query('d2moddin_admins' . $steamid64,
@@ -73,6 +69,10 @@ $user_details = !empty($_SESSION['user_details'])
 
                                 if (!empty($d2moddin_admins)) {
                                     echo '<h2 class="col-md-offset-5 animated delay023 fadeInBottom"><a class="active" target="_new" href="./admin/?key=' . $admin_pass_master . '">ADMIN PANEL⇚</a></h2>';
+                                }
+                                else{
+                                    echo '<h2 class="col-md-offset-5 animated delay023 fadeInBottom">Sign up to get your slot in the
+                            beta!</h2>';
                                 }
 
                                 $d2moddin_gifters = simple_cached_query('d2moddin_gifters' . $steamid64,
