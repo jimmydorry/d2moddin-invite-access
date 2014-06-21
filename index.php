@@ -163,7 +163,8 @@ FROM `invite_key` ik WHERE ik.`steam_id` = " . $steamid64 . " LIMIT 0,1;";
                             echo '<p>Your original queue id was ' . number_format($d2moddin_user['queue_id']) . '</p>';
 
                             if (!$d2moddin_user['banned']) {
-                                $donate_url = 'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=BY9D59PJTKRA4&lc=US&item_name=D2Moddin&item_number=stream&currency_code=USD&bn=PP%2dDonationsBF%3apanel%2d51694185%2dimage%2dc3579668e9e7350a%2d320%2epng%3aNonHosted';
+                                //$donate_url = 'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=BY9D59PJTKRA4&lc=US&item_name=D2Moddin&item_number=stream&currency_code=USD&bn=PP%2dDonationsBF%3apanel%2d51694185%2dimage%2dc3579668e9e7350a%2d320%2epng%3aNonHosted';
+                                $donate_url = 'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=7XW64LHAJL4K8&lc=US&item_name=D2Moddin&item_number=d2moddin2&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted';
                                 $donate_url .= '&return=' . urlencode('http://d2modd.in/?thanks') .
                                     '&notify_url=' . urlencode('http://d2modd.in/donate/IPN_noperks.php') .
                                     '&cancel_return=' . urlencode('http://d2modd.in/') .

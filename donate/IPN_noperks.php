@@ -1,6 +1,7 @@
 <?php
 
-$receiver_email = 'kidovate@gmail.com';
+//$receiver_email = 'kidovate@gmail.com';
+$receiver_email = 'kidovate+paypal@gmail.com';
 $log_file = "./pings/ipn" . time() . ".txt";
 $log = '';
 
