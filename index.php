@@ -171,7 +171,7 @@ FROM `invite_key` ik WHERE ik.`steam_id` = " . $steamid64 . " LIMIT 0,1;";
                                     '&rm=2' .
                                     '&custom=' . $steamid64;
 
-                                echo '<p><a href="' . $donate_url . '" target="_new"><span class="h5">Donations Accepted Here (skip the queue for $2 or higher)</span></a></p>';
+                                //echo '<p><a href="' . $donate_url . '" target="_new"><span class="h5">Donations Accepted Here (skip the queue for $2 or higher)</span></a></p>';
                             }
 
                             echo '</div>';
